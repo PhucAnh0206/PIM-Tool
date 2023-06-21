@@ -1,4 +1,6 @@
-﻿namespace PIMToolCodeBase.Dtos
+﻿using System;
+
+namespace PIMToolCodeBase.Dtos
 {
     /// <summary>
     ///     Dto to transfer data between client and server.

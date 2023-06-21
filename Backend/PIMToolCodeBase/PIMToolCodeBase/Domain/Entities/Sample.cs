@@ -1,4 +1,7 @@
-﻿namespace PIMToolCodeBase.Domain.Entities
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PIMToolCodeBase.Domain.Entities
 {
     /// <summary>
     ///     Sample entity.

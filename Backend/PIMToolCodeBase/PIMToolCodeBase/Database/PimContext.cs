@@ -21,12 +21,31 @@ namespace PIMToolCodeBase.Database
 
         public DbSet<Sample> Samples { get; set; }
 
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
+
+        public DbSet<ProjectEmployee> ProjectEmployees { get; set; }
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BaseEntity>().HasKey(x => x.Id)
                 .Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             modelBuilder.Entity<Sample>().ToTablePerConcreteTable();
+
+            modelBuilder.Entity<Project>().ToTablePerConcreteTable();
+
+            modelBuilder.Entity<Employee>().ToTablePerConcreteTable();
+
+            modelBuilder.Entity<Group>().ToTablePerConcreteTable();
+
+            modelBuilder.Entity<ProjectEmployee>().ToTablePerConcreteTable();
+
         }
     }
 }

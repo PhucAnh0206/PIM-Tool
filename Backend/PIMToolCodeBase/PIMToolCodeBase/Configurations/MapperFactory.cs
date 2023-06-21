@@ -18,11 +18,17 @@ namespace PIMToolCodeBase.Configurations
                     {
                         var config =
                             new MapperConfiguration(
-                                x =>
-                                    x.AddProfiles(new[]
-                                    {
-                                        new SampleMappingProfile()
-                                    }));
+                            x =>
+                            {
+                                x.AddProfile(new EmployeeMappingProfile());
+                                x.AddProfile(new SampleMappingProfile());
+                                x.AddProfile(new ProjectMappingProfile());
+                                x.AddProfile(new GroupMappingProfile());
+                                x.AddProfile(new ProjectEmployeeMappingProfile());
+                            });
+
+
+                        ;
                         _mapper = config.CreateMapper();
                     }
                 }
