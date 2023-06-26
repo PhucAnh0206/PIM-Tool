@@ -157,6 +157,14 @@
     <Compile Include="Migrations\202306210648363_ChangeEntities2.designer.cs">
       <DependentUpon>202306210648363_ChangeEntities2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306230203217_ChangeProjectEntity.cs" />
+    <Compile Include="Migrations\202306230203217_ChangeProjectEntity.designer.cs">
+      <DependentUpon>202306230203217_ChangeProjectEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306260146545_AddVersionColumn.cs" />
+    <Compile Include="Migrations\202306260146545_AddVersionColumn.designer.cs">
+      <DependentUpon>202306260146545_AddVersionColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -213,6 +221,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306210648363_ChangeEntities2.resx">
       <DependentUpon>202306210648363_ChangeEntities2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306230203217_ChangeProjectEntity.resx">
+      <DependentUpon>202306230203217_ChangeProjectEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306260146545_AddVersionColumn.resx">
+      <DependentUpon>202306260146545_AddVersionColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

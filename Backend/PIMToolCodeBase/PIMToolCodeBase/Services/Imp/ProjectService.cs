@@ -47,8 +47,13 @@ namespace PIMToolCodeBase.Services.Imp
             {
                 throw new ArgumentException();
             }
-
             projectDb.Name = project.Name;
+            projectDb.Customer = project.Customer;
+            projectDb.Status = project.Status;
+            projectDb.StartDate = project.StartDate;
+            projectDb.EndDate = project.EndDate;
+            projectDb.Version = project.Version;
+            projectDb.GroupId = project.GroupId;
             _projectRepository.SaveChange();
             return projectDb;
         }

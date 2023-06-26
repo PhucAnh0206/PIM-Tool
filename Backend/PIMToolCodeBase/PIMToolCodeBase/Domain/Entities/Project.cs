@@ -28,8 +28,6 @@ namespace PIMToolCodeBase.Domain.Entities
            
         public int Version { get; set; }
 
-        [ForeignKey("Group")]
         public int GroupId { get; set; }  // Foreign key property
-        public Group Group { get; set; } // Navigation property
     }
 }
