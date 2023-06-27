@@ -23,7 +23,7 @@
     "@ngx-translate/http-loader": "^6.0.0",
     "bootstrap": "^4.0.0",
     "ng-swagger-gen": "git+https://github.com/aersamkull/ng-swagger-gen.git#840d7535b97fc621afa5d06cdeb5ed6fd220e166",
-    "rxjs": "~6.6.0",
+    "rxjs": "~7.8.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
