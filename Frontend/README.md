@@ -27,15 +27,25 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## Modules
+
 #### 1. Base
-Containt all common components, services, directives, helpers,... that used in project.
+
+Contain all common components, services, directives, helpers,... that used in project.
+
 #### 2. Shell
-Containt the master layout of the application.
+
+Contain the master layout of the application.
+
 #### 3. Project
-The example module for the application, it containt the example with create grid component in Base module and use it in project list component.
+
+The example module for the application, it contains the example with create grid component in Base module and use it in project list component.
+
 ## Multilingual
+
 The project have aldready setup the multilingual with Angular TranslateModule, you can find the resource file in src/assets/i18n
+
 ## Swagger
-* When you change the controller, you need to run "npm run generate-swagger" to generate typescript file to call to api, the output is located in src/app
-* Note: if you want to use swagger api in your module, you have to import the ApiModule of swagger to your module
-* When you use swagger to call to backend api, please check the url is correct, if not, please provide ApiConfiguration in your module (like in app.module.ts)
+
+- When you change the controller, you need to run "npm run generate-swagger" to generate typescript file to call to api, the output is located in src/app
+- Note: if you want to use swagger api in your module, you have to import the ApiModule of swagger to your module
+- When you use swagger to call to backend api, please check the url is correct, if not, please provide ApiConfiguration in your module (like in app.module.ts)

@@ -1,0 +1,55 @@
+<h1>New Project</h1>
+<form
+  #userPost="ngForm"
+  [formGroup]="newprojectForm"
+  (ngSubmit)="onSubmit(userPost.value)"
+  class="form-container"
+>
+  <div class="form-group">
+    <label for="project-number"
+      >Project Number<span class="required-field"> *</span></label
+    >
+    <input
+      id="project-number"
+      type="text"
+      formControlName="projectNumber"
+      required
+    />
+
+    <label for="project-name"
+      >Project name<span class="required-field"> *</span></label
+    >
+    <input
+      id="project-name"
+      type="text"
+      formControlName="projectName"
+      required
+    />
+
+    <label for="customer">Customer<span class="required-field"> *</span></label>
+    <input id="customer" type="text" formControlName="customer" required />
+
+    <label for="group">Group<span class="required-field"> *</span></label>
+    <input id="group" type="text" formControlName="group" required />
+
+    <label for="member">Members</label>
+    <input id="member" type="text" formControlName="members" />
+
+    <label for="status">Status<span class="required-field"> *</span></label>
+    <input id="status" type="text" formControlName="status" required />
+
+    <label for="startdate"
+      >Start date<span class="required-field"> *</span></label
+    >
+    <input id="startdate" type="date" formControlName="startdate" required />
+
+    <label for="enddate">End date</label>
+    <input id="enddate" type="date" formControlName="enddate" />
+  </div>
+</form>
+
+<button class="createButton" type="submit" (click)="onSubmit(userPost.value)">
+  Create Project
+</button>
+
+<button class="cancleButton" type="button" (click)="cancle()">Cancle</button>
