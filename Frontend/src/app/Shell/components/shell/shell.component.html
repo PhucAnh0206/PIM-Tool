@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">PIM Tool</a>
+    <a
+      class="navbar-brand"
+      routerLink="/project/project-list"
+      routerLinkActive="active"
+      >Project List</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -17,14 +22,6 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="/project/project-list"
-            routerLinkActive="active"
-            >Project List</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
             routerLink="/project/create-project"
             routerLinkActive="active"
             >New</a
@@ -38,7 +35,7 @@
   </div>
 </nav>
 <div id="titleContent">
-  <a routerLink="/">
+  <a routerLink="/project/project-list" routerLinkActive="active">
     <img src="assets/img/logo.png" />
   </a>
   <br />
@@ -50,3 +47,58 @@
     <p>&copy; 2020</p>
   </footer>
 </div>
+
+<!-- <div class="sidebar">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a
+        class="navbar-brand"
+        routerLink="/project/project-list"
+        routerLinkActive="active"
+        >Project List</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="/project/create-project"
+              routerLinkActive="active"
+              >New</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<div id="content">
+  <div id="titleContent">
+    <a routerLink="/project/project-list" routerLinkActive="active">
+      <img src="assets/img/logo.png" />
+    </a>
+    <br />
+  </div>
+  <div class="container body-content">
+    <router-outlet></router-outlet>
+    <hr />
+    <footer>
+      <p>&copy; 2020</p>
+    </footer>
+  </div>
+</div> -->

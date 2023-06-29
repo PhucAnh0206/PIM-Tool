@@ -1,55 +1,151 @@
-<h1>New Project</h1>
+<p>New Project</p>
 <form
-  #userPost="ngForm"
+  #localForm="ngForm"
   [formGroup]="newprojectForm"
-  (ngSubmit)="onSubmit(userPost.value)"
+  (ngSubmit)="onSubmit(localForm)"
   class="form-container"
 >
   <div class="form-group">
-    <label for="project-number"
-      >Project Number<span class="required-field"> *</span></label
-    >
-    <input
-      id="project-number"
-      type="text"
-      formControlName="projectNumber"
-      required
-    />
-
-    <label for="project-name"
-      >Project name<span class="required-field"> *</span></label
-    >
-    <input
-      id="project-name"
-      type="text"
-      formControlName="projectName"
-      required
-    />
-
-    <label for="customer">Customer<span class="required-field"> *</span></label>
-    <input id="customer" type="text" formControlName="customer" required />
-
-    <label for="group">Group<span class="required-field"> *</span></label>
-    <input id="group" type="text" formControlName="group" required />
-
-    <label for="member">Members</label>
-    <input id="member" type="text" formControlName="members" />
-
-    <label for="status">Status<span class="required-field"> *</span></label>
-    <input id="status" type="text" formControlName="status" required />
-
-    <label for="startdate"
-      >Start date<span class="required-field"> *</span></label
-    >
-    <input id="startdate" type="date" formControlName="startdate" required />
-
-    <label for="enddate">End date</label>
-    <input id="enddate" type="date" formControlName="enddate" />
+    <div class="input-group">
+      <label for="project-number"
+        >Project number<span class="required-field"> *</span></label
+      >
+      <input
+        id="project-number"
+        type="text"
+        formControlName="projectNumber"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('projectNumber')?.invalid
+        "
+      />
+    </div>
   </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="project-name"
+        >Project name<span class="required-field"> *</span></label
+      >
+      <input
+        id="project-name"
+        type="text"
+        formControlName="projectName"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('projectName')?.invalid
+        "
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="customer"
+        >Customer<span class="required-field"> *</span></label
+      >
+      <input
+        id="customer"
+        type="text"
+        formControlName="customer"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('customer')?.invalid
+        "
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="group">Group<span class="required-field"> *</span></label>
+      <input
+        id="group"
+        type="text"
+        formControlName="group"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('group')?.invalid
+        "
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="member">Members</label>
+      <input id="member" type="text" formControlName="members" />
+    </div>
+  </div>
+
+  <!-- <div class="form-group">
+    <div class="input-group">
+      <label for="status">Status<span class="required-field"> *</span></label>
+      <input
+        id="status"
+        type="text"
+        formControlName="status"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('status')?.invalid
+        "
+      />
+    </div>
+  </div> -->
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="status">Status<span class="required-field"> *</span></label>
+      <select
+        id="status"
+        name="Status"
+        formControlName="status"
+        type="text"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('status')?.invalid
+        "
+      >
+        <option disabled selected>--Select--</option>
+        <option value="NEW">New</option>
+        <option value="PLA">Planned</option>
+        <option value="INP">In Progress</option>
+        <option value="FIN">Finished</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="startdate"
+        >Start date<span class="required-field"> *</span></label
+      >
+      <input
+        id="startdate"
+        type="date"
+        formControlName="startdate"
+        required
+        [class.is-invalid]="
+          localForm.submitted && newprojectForm.get('startdate')?.invalid
+        "
+      />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="enddate">End date</label>
+      <input id="enddate" type="date" formControlName="enddate" />
+    </div>
+  </div>
+
+  <div
+    class="error-message"
+    *ngIf="localForm.submitted && newprojectForm.invalid"
+  >
+    Please enter all the mandatory fields (*).
+  </div>
+
+  <button class="createButton" type="submit">Create Project</button>
 </form>
-
-<button class="createButton" type="submit" (click)="onSubmit(userPost.value)">
-  Create Project
-</button>
-
 <button class="cancleButton" type="button" (click)="cancle()">Cancle</button>

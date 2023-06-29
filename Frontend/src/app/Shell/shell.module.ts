@@ -1,18 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 
-import { PIMBaseModule } from '../Base/base.module';
-import { ShellComponent } from './components/shell/shell.component';
+import { PIMBaseModule } from "../Base/base.module";
+import { ShellComponent } from "./components/shell/shell.component";
 
 @NgModule({
-    declarations: [
-        ShellComponent
-    ],
-    imports: [
-        RouterModule,
-        PIMBaseModule
-    ]
+  declarations: [ShellComponent],
+  imports: [RouterModule, PIMBaseModule],
 })
-export class ShellModule {
-
-}
+export class ShellModule {}
