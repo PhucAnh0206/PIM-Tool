@@ -1,4 +1,6 @@
 <p>New Project</p>
+
+<hr />
 <form
   #localForm="ngForm"
   [formGroup]="newprojectForm"
@@ -107,7 +109,12 @@
         "
       >
         <option disabled selected>--Select--</option>
-        <option value="NEW">New</option>
+        <option
+          value="NEW"
+          [value]="newprojectForm.get('status')?.value || 'NEW'"
+        >
+          New
+        </option>
         <option value="PLA">Planned</option>
         <option value="INP">In Progress</option>
         <option value="FIN">Finished</option>
@@ -138,14 +145,17 @@
       <input id="enddate" type="date" formControlName="enddate" />
     </div>
   </div>
-
+  <hr />
   <div
     class="error-message"
     *ngIf="localForm.submitted && newprojectForm.invalid"
   >
     Please enter all the mandatory fields (*).
   </div>
-
-  <button class="createButton" type="submit">Create Project</button>
+  <div class="button-container">
+    <button class="cancleButton" type="button" (click)="cancle()">
+      Cancle
+    </button>
+    <button class="createButton" type="submit">Create Project</button>
+  </div>
 </form>
-<button class="cancleButton" type="button" (click)="cancle()">Cancle</button>

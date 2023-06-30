@@ -28,7 +28,7 @@ export class NewprojectComponent implements OnInit {
         customer: ["", Validators.required],
         group: ["", Validators.required],
         members: [""],
-        status: ["", Validators.required],
+        status: ["NEW", Validators.required],
         startdate: ["", Validators.required],
         enddate: [""],
       },
@@ -47,16 +47,20 @@ export class NewprojectComponent implements OnInit {
     if (this.newprojectForm.valid) {
       console.log(this.newprojectForm.value);
       setTimeout(() => {
+        const defaultValue = this.newprojectForm.get("status").value;
+        this.newprojectForm.reset();
         this.newprojectForm.markAsPristine();
         this.newprojectForm.markAsUntouched();
-        this.newprojectForm.reset();
+        this.newprojectForm.patchValue({ status: defaultValue });
       }, 0);
     }
   }
 
   cancle() {
+    const defaultValue = this.newprojectForm.get("status").value;
+    this.newprojectForm.reset();
     this.newprojectForm.markAsPristine();
     this.newprojectForm.markAsUntouched();
-    this.newprojectForm.reset();
+    this.newprojectForm.get("status").setValue(defaultValue);
   }
 }

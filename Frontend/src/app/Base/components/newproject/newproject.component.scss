@@ -1,20 +1,24 @@
 //form
-
-.form-container {
-  display: flex;
-  flex-direction: column;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.form-row {
-  display: flex;
+.input-group {
   align-items: center;
-  margin-bottom: 10px;
+  display: flex;
 }
 
-.form-row label {
-  width: 150px; /* Adjust the width as needed */
-  margin-right: 10px; /* Add spacing between label and form box */
+.input-group label {
+  flex: 0 0 250px;
 }
+
+// .input-group input,
+// .input-group select {
+//   flex: 1;
+//   padding: 5px;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+// }
 
 input {
   padding: 1px; /* Adjust the padding as needed */
@@ -28,8 +32,20 @@ input {
   width: 200px;
 }
 
+#project-name {
+  width: 500px;
+}
+
+#customer {
+  width: 500px;
+}
+
 #group {
   width: 200px;
+}
+
+#member {
+  width: 500px;
 }
 
 #status {
@@ -52,6 +68,8 @@ h1 {
   font-size: 35px; /* Adjust the size as per your preference */
 }
 
+// group
+
 // button
 .createButton {
   background-color: rgb(0, 140, 255);
@@ -63,10 +81,15 @@ h1 {
 .cancleButton {
   width: 150px;
   border-radius: 4px;
+  margin-right: 30px;
 }
 
 button {
   border: 1px solid #ccc;
+}
+
+.button-container {
+  text-align: right;
 }
 
 // require
