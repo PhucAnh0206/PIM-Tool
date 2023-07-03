@@ -80,21 +80,6 @@
     </div>
   </div>
 
-  <!-- <div class="form-group">
-    <div class="input-group">
-      <label for="status">Status<span class="required-field"> *</span></label>
-      <input
-        id="status"
-        type="text"
-        formControlName="status"
-        required
-        [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('status')?.invalid
-        "
-      />
-    </div>
-  </div> -->
-
   <div class="form-group">
     <div class="input-group">
       <label for="status">Status<span class="required-field"> *</span></label>
@@ -110,14 +95,14 @@
       >
         <option disabled selected>--Select--</option>
         <option
-          value="NEW"
-          [value]="newprojectForm.get('status')?.value || 'NEW'"
+          value="New"
+          [value]="newprojectForm.get('status')?.value || 'New'"
         >
           New
         </option>
-        <option value="PLA">Planned</option>
-        <option value="INP">In Progress</option>
-        <option value="FIN">Finished</option>
+        <option value="Planned">Planned</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Finished">Finished</option>
       </select>
     </div>
   </div>
@@ -156,6 +141,20 @@
     <button class="cancleButton" type="button" (click)="cancle()">
       Cancle
     </button>
-    <button class="createButton" type="submit">Create Project</button>
+    <button class="createButton" type="submit">{{ actionBtn }}</button>
   </div>
 </form>
+
+<!-- <h1 mat-dialog-title>Project</h1>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Project number</mat-label>
+    <input matInput placeholder="Number" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Project number</mat-label>
+    <input matInput placeholder="Number" />
+  </mat-form-field>
+</div> -->
