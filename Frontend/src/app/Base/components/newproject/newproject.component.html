@@ -1,10 +1,10 @@
-<p>New Project</p>
+<h2>{{ title }}</h2>
 
 <hr />
 <form
   #localForm="ngForm"
   [formGroup]="newprojectForm"
-  (ngSubmit)="onSubmit(localForm)"
+  (ngSubmit)="onSubmit()"
   class="form-container"
 >
   <div class="form-group">
@@ -94,12 +94,7 @@
         "
       >
         <option disabled selected>--Select--</option>
-        <option
-          value="New"
-          [value]="newprojectForm.get('status')?.value || 'New'"
-        >
-          New
-        </option>
+        <option value="New">New</option>
         <option value="Planned">Planned</option>
         <option value="In Progress">In Progress</option>
         <option value="Finished">Finished</option>
@@ -127,10 +122,25 @@
   <div class="form-group">
     <div class="input-group">
       <label for="enddate">End date</label>
-      <input id="enddate" type="date" formControlName="enddate" />
+      <input
+        id="enddate"
+        type="date"
+        formControlName="enddate"
+        [class.is-invalid]="
+          newprojectForm.get('enddate').invalid &&
+          newprojectForm.get('enddate').touched
+        "
+      />
+      <div
+        *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
+        class="invalid-feedback"
+      >
+        End date must not be smaller than start date.
+      </div>
     </div>
   </div>
   <hr />
+
   <div
     class="error-message"
     *ngIf="localForm.submitted && newprojectForm.invalid"
@@ -138,23 +148,16 @@
     Please enter all the mandatory fields (*).
   </div>
   <div class="button-container">
-    <button class="cancleButton" type="button" (click)="cancle()">
+    <button
+      class="cancleButton"
+      type="button"
+      mat-dialog-close
+      (click)="cancle()"
+    >
       Cancle
     </button>
-    <button class="createButton" type="submit">{{ actionBtn }}</button>
+    <button class="createButton" type="submit">
+      {{ actionBtn }}
+    </button>
   </div>
 </form>
-
-<!-- <h1 mat-dialog-title>Project</h1>
-
-<div mat-dialog-content>
-  <mat-form-field appearance="outline">
-    <mat-label>Project number</mat-label>
-    <input matInput placeholder="Number" />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Project number</mat-label>
-    <input matInput placeholder="Number" />
-  </mat-form-field>
-</div> -->
