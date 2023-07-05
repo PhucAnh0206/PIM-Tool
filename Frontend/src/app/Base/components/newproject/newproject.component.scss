@@ -131,5 +131,13 @@ button {
   color: red;
   font-weight: normal;
   padding: 10px;
-  width: 350px;
+  width: 300px;
+}
+
+.invalid-feedback {
+  background-color: rgb(247, 218, 218);
+  color: red;
+  font-weight: normal;
+  padding: 10px;
+  width: 270px;
 }
