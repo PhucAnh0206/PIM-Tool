@@ -14,6 +14,7 @@ import {
 } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "new-project",
@@ -31,8 +32,16 @@ export class NewprojectComponent implements OnInit {
     private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogRef: MatDialogRef<NewprojectComponent>,
-    private router: Router
-  ) {}
+    private router: Router,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(["en", "fr"]);
+    translate.setDefaultLang("en");
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
 
   // endDateValidator(control: FormControl): { [key: string]: boolean } | null {
   //   const startDate = this.newprojectForm.get('startDate')?.value;

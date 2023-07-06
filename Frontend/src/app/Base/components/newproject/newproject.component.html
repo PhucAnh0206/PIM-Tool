@@ -1,4 +1,4 @@
-<h2>{{ title }}</h2>
+<h2>{{ title | translate }}</h2>
 
 <hr />
 <form
@@ -10,7 +10,8 @@
   <div class="form-group">
     <div class="input-group">
       <label for="project-number"
-        >Project number<span class="required-field"> *</span></label
+        >{{ "Project number" | translate
+        }}<span class="required-field"> *</span></label
       >
       <input
         id="project-number"
@@ -27,7 +28,8 @@
   <div class="form-group">
     <div class="input-group">
       <label for="project-name"
-        >Project name<span class="required-field"> *</span></label
+        >{{ "Project name" | translate
+        }}<span class="required-field"> *</span></label
       >
       <input
         id="project-name"
@@ -44,7 +46,8 @@
   <div class="form-group">
     <div class="input-group">
       <label for="customer"
-        >Customer<span class="required-field"> *</span></label
+        >{{ "Customer" | translate
+        }}<span class="required-field"> *</span></label
       >
       <input
         id="customer"
@@ -60,7 +63,9 @@
 
   <div class="form-group">
     <div class="input-group">
-      <label for="group">Group<span class="required-field"> *</span></label>
+      <label for="group"
+        >{{ "Group" | translate }}<span class="required-field"> *</span></label
+      >
       <input
         id="group"
         type="text"
@@ -75,14 +80,16 @@
 
   <div class="form-group">
     <div class="input-group">
-      <label for="member">Members</label>
+      <label for="member">{{ "Members" | translate }}</label>
       <input id="member" type="text" formControlName="members" />
     </div>
   </div>
 
   <div class="form-group">
     <div class="input-group">
-      <label for="status">Status<span class="required-field"> *</span></label>
+      <label for="status"
+        >{{ "Status" | translate }}<span class="required-field"> *</span></label
+      >
       <select
         id="status"
         name="Status"
@@ -93,11 +100,13 @@
           localForm.submitted && newprojectForm.get('status')?.invalid
         "
       >
-        <option disabled selected>--Select--</option>
-        <option value="New">New</option>
-        <option value="Planned">Planned</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Finished">Finished</option>
+        <option disabled selected>{{ "--Select--" | translate }}</option>
+        <option value="New">{{ "New" | translate }}</option>
+        <option value="Planned">{{ "Planned" | translate }}</option>
+        <option value="In Progress">
+          {{ "In Progress" | translate }}
+        </option>
+        <option value="Finished">{{ "Finished" | translate }}</option>
       </select>
     </div>
   </div>
@@ -105,7 +114,8 @@
   <div class="form-group">
     <div class="input-group">
       <label for="startdate"
-        >Start date<span class="required-field"> *</span></label
+        >{{ "Start date" | translate
+        }}<span class="required-field"> *</span></label
       >
       <input
         id="startdate"
@@ -121,7 +131,7 @@
 
   <div class="form-group">
     <div class="input-group">
-      <label for="enddate">End date</label>
+      <label for="enddate">{{ "End date" | translate }}</label>
       <input
         id="enddate"
         type="date"
@@ -135,7 +145,7 @@
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
         class="invalid-feedback"
       >
-        End date must not be smaller than start date.
+        {{ "End date must not be smaller than start date" | translate }}
       </div>
     </div>
   </div>
@@ -145,7 +155,7 @@
     class="error-message"
     *ngIf="localForm.submitted && newprojectForm.invalid"
   >
-    Please enter all the mandatory fields (*).
+    {{ "Please enter all the mandatory fields (*)" | translate }}
   </div>
   <div class="button-container">
     <button
@@ -154,10 +164,10 @@
       mat-dialog-close
       (click)="cancle()"
     >
-      Cancle
+      {{ "Cancle" | translate }}
     </button>
     <button class="createButton" type="submit">
-      {{ actionBtn }}
+      {{ actionBtn | translate }}
     </button>
   </div>
 </form>

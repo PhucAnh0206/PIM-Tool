@@ -1,21 +1,25 @@
 /* tslint:disable */
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BaseService } from '../base-service';
-import { ApiConfiguration } from '../api-configuration';
-import { StrictHttpResponse } from '../strict-http-response';
-import { Observable } from 'rxjs';
-import { map as __map, filter as __filter } from 'rxjs/operators';
+import { Injectable } from "@angular/core";
+import {
+  HttpClient,
+  HttpRequest,
+  HttpResponse,
+  HttpHeaders,
+  HttpParams,
+} from "@angular/common/http";
+import { BaseService } from "../base-service";
+import { ApiConfiguration } from "../api-configuration";
+import { StrictHttpResponse } from "../strict-http-response";
+import { Observable } from "rxjs";
+import { map as __map, filter as __filter } from "rxjs/operators";
 
-import { SampleDto } from '../models/sample-dto';
+import { SampleDto } from "../models/sample-dto";
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 class SampleService extends BaseService {
-  constructor(
-    config: ApiConfiguration,
-    http: HttpClient
-  ) {
+  constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
@@ -27,17 +31,18 @@ class SampleService extends BaseService {
     let __headers = new HttpHeaders();
     let __body: any = null;
     let req = new HttpRequest<any>(
-      'GET',
+      "GET",
       this.rootUrl + `/api/Sample`,
       __body,
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
-      });
+        responseType: "json",
+      }
+    );
 
     return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
+      __filter((_r) => _r instanceof HttpResponse),
       __map((_r) => {
         return _r as StrictHttpResponse<Array<SampleDto>>;
       })
@@ -47,32 +52,33 @@ class SampleService extends BaseService {
    * @return OK
    */
   SampleGet(): Observable<Array<SampleDto>> {
-    return this.SampleGetResponse().pipe(
-      __map(_r => _r.body)
-    );
+    return this.SampleGetResponse().pipe(__map((_r) => _r.body));
   }
 
   /**
    * @param sample undefined
    * @return OK
    */
-  SamplePutResponse(sample: SampleDto): Observable<StrictHttpResponse<SampleDto>> {
+  SamplePutResponse(
+    sample: SampleDto
+  ): Observable<StrictHttpResponse<SampleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     __body = sample;
     let req = new HttpRequest<any>(
-      'PUT',
+      "PUT",
       this.rootUrl + `/api/Sample`,
       __body,
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
-      });
+        responseType: "json",
+      }
+    );
 
     return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
+      __filter((_r) => _r instanceof HttpResponse),
       __map((_r) => {
         return _r as StrictHttpResponse<SampleDto>;
       })
@@ -83,32 +89,33 @@ class SampleService extends BaseService {
    * @return OK
    */
   SamplePut(sample: SampleDto): Observable<SampleDto> {
-    return this.SamplePutResponse(sample).pipe(
-      __map(_r => _r.body)
-    );
+    return this.SamplePutResponse(sample).pipe(__map((_r) => _r.body));
   }
 
   /**
    * @param sample undefined
    * @return OK
    */
-  SamplePostResponse(sample: SampleDto): Observable<StrictHttpResponse<SampleDto>> {
+  SamplePostResponse(
+    sample: SampleDto
+  ): Observable<StrictHttpResponse<SampleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     __body = sample;
     let req = new HttpRequest<any>(
-      'POST',
+      "POST",
       this.rootUrl + `/api/Sample`,
       __body,
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
-      });
+        responseType: "json",
+      }
+    );
 
     return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
+      __filter((_r) => _r instanceof HttpResponse),
       __map((_r) => {
         return _r as StrictHttpResponse<SampleDto>;
       })
@@ -119,9 +126,7 @@ class SampleService extends BaseService {
    * @return OK
    */
   SamplePost(sample: SampleDto): Observable<SampleDto> {
-    return this.SamplePostResponse(sample).pipe(
-      __map(_r => _r.body)
-    );
+    return this.SamplePostResponse(sample).pipe(__map((_r) => _r.body));
   }
 
   /**
@@ -134,17 +139,18 @@ class SampleService extends BaseService {
     let __body: any = null;
 
     let req = new HttpRequest<any>(
-      'GET',
+      "GET",
       this.rootUrl + `/api/Sample/${id}`,
       __body,
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
-      });
+        responseType: "json",
+      }
+    );
 
     return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
+      __filter((_r) => _r instanceof HttpResponse),
       __map((_r) => {
         return _r as StrictHttpResponse<SampleDto>;
       })
@@ -155,9 +161,7 @@ class SampleService extends BaseService {
    * @return OK
    */
   SampleGet_1(id: number): Observable<SampleDto> {
-    return this.SampleGet_1Response(id).pipe(
-      __map(_r => _r.body)
-    );
+    return this.SampleGet_1Response(id).pipe(__map((_r) => _r.body));
   }
 
   /**
@@ -169,17 +173,18 @@ class SampleService extends BaseService {
     let __body: any = null;
 
     let req = new HttpRequest<any>(
-      'DELETE',
+      "DELETE",
       this.rootUrl + `/api/Sample/${id}`,
       __body,
       {
         headers: __headers,
         params: __params,
-        responseType: 'json'
-      });
+        responseType: "json",
+      }
+    );
 
     return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
+      __filter((_r) => _r instanceof HttpResponse),
       __map((_r) => {
         return _r as StrictHttpResponse<null>;
       })
@@ -189,13 +194,10 @@ class SampleService extends BaseService {
    * @param id undefined
    */
   SampleDelete(id: number): Observable<null> {
-    return this.SampleDeleteResponse(id).pipe(
-      __map(_r => _r.body)
-    );
+    return this.SampleDeleteResponse(id).pipe(__map((_r) => _r.body));
   }
 }
 
-module SampleService {
-}
+module SampleService {}
 
-export { SampleService }
+export { SampleService };

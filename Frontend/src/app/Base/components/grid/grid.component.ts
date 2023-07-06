@@ -20,6 +20,11 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { TranslateService } from "@ngx-translate/core";
+import { SelectionModel } from "@angular/cdk/collections";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { forkJoin } from "rxjs";
+
 @Component({
   selector: "pim-grid",
   templateUrl: "./grid.component.html",
@@ -27,7 +32,16 @@ import { MatFormFieldModule } from "@angular/material/form-field";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridComponent implements OnInit {
+  constructor(
+    private dialog: MatDialog,
+    private api: ApiService,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(["en", "fr"]);
+    translate.setDefaultLang("en");
+  }
   displayedColumns: string[] = [
+    "select",
     "projectNumber",
     "projectName",
     "status",
@@ -36,6 +50,7 @@ export class GridComponent implements OnInit {
     "action",
   ];
   dataSource!: MatTableDataSource<any>;
+  selection = new SelectionModel<any>(true, []);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -43,10 +58,39 @@ export class GridComponent implements OnInit {
   @ViewChild("input1") input1!: ElementRef<HTMLInputElement>;
   @ViewChild("input2") input2!: ElementRef<HTMLInputElement>;
 
-  constructor(private dialog: MatDialog, private api: ApiService) {}
+  switchLang(lang: string) {
+    this.translate.use(lang);
+  }
 
   ngOnInit(): void {
     this.getAllProjects();
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "deselect" : "select"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.position + 1
+    }`;
   }
 
   getAllProjects() {
@@ -77,15 +121,59 @@ export class GridComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    this.api.deleteProject(id).subscribe({
-      next: (res) => {
-        alert("Project deleted successfully");
-        this.getAllProjects();
-      },
-      error: () => {
-        alert("Error while deleting project");
-      },
-    });
+    const project = this.dataSource.data.find((item) => item.id === id);
+
+    if (project && project.status === "New") {
+      this.api.deleteProject(id).subscribe({
+        next: (res) => {
+          alert("Project deleted successfully");
+          this.getAllProjects();
+        },
+        error: () => {
+          alert("Error while deleting project");
+        },
+      });
+    } else {
+      alert("Only 'New' projects can be deleted");
+    }
+  }
+
+  deleteSelectedProjects() {
+    const selectedProjects = this.selection.selected;
+    const selectedProjectIds = selectedProjects.map((project) => project.id);
+    let allProjectsNew = true;
+
+    for (const project of selectedProjects) {
+      if (project.status !== "New") {
+        allProjectsNew = false;
+        break;
+      }
+    }
+
+    if (allProjectsNew) {
+      if (selectedProjects.length > 0) {
+        // Perform the deletion logic for selected projects
+        const deletions = selectedProjectIds.map((projectId) =>
+          this.api.deleteProject(projectId)
+        );
+
+        // Execute the deletion requests in parallel using forkJoin
+        forkJoin(deletions).subscribe(
+          () => {
+            alert("Selected projects deleted successfully");
+            this.getAllProjects();
+            this.selection.clear();
+          },
+          () => {
+            alert("Error while deleting selected projects");
+          }
+        );
+      } else {
+        alert("No projects selected");
+      }
+    } else {
+      alert("Only 'New' projects can be deleted");
+    }
   }
 
   filteredColumns: string[] = ["projectNumber", "projectName", "customer"];

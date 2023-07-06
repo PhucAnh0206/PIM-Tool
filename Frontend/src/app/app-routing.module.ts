@@ -7,6 +7,8 @@ const routes: Routes = [
     loadChildren: () =>
       import("./Project/project.module").then((m) => m.ProjectModule),
   },
+
+  { path: "", redirectTo: "/project/project-list", pathMatch: "full" },
 ];
 
 @NgModule({

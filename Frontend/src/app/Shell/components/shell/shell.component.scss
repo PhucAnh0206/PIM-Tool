@@ -5,6 +5,11 @@
   }
 }
 
+.header {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-vertical {
   display: flex;
   position: relative;
@@ -15,4 +20,41 @@
 .vertical-line {
   border-left: 1px solid #ccc;
   height: 540px; /* Adjust the height as needed */
+}
+
+.buttons {
+  margin-left: 700px;
+  display: flex;
+}
+
+.language-button {
+  background-color: rgb(0, 140, 255);
+  color: white;
+  border-radius: 4px;
+  width: 50px;
+  border: none;
+}
+
+.helpButton {
+  background: none;
+  border: none;
+  padding: 100;
+  color: blue;
+  font: inherit;
+  cursor: pointer;
+  margin-left: 100px;
+}
+
+.logButton {
+  background: none;
+  border: none;
+  padding: 100;
+  color: gray;
+  font: inherit;
+  cursor: pointer;
+  margin-left: 70px;
+}
+
+.title {
+  font-weight: bold;
 }

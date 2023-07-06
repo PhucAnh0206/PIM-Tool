@@ -17,6 +17,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 // All exported items hear need to declare in public_api.ts
 const DECLARED_EXPORTS = [GridComponent, NewprojectComponent];
@@ -45,6 +46,7 @@ const RELAYED_EXPORTS = [CommonModule, TranslateModule];
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    MatCheckboxModule,
   ],
   exports: [...RELAYED_EXPORTS, ...DECLARED_EXPORTS],
 })
