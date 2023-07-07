@@ -39,3 +39,32 @@ table {
   border-radius: 4px;
   margin-left: 20px;
 }
+
+.select-message {
+  display: flex;
+  background-color: rgb(202, 234, 245);
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.select-text {
+  margin-top: 10px;
+  color: blue;
+  font-size: 15px;
+}
+
+// .select-delete-button {
+//   display: flex;
+//   margin-left: 500px;
+// }
+
+.select-button-container {
+  margin-left: auto;
+  display: flex;
+}
+
+.delete-text {
+  margin-top: 10px;
+  color: rgb(192, 97, 7);
+  font-size: 15px;
+}

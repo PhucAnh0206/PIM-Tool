@@ -15,7 +15,6 @@ namespace PIMToolCodeBase.Dtos
         [StringLength(50)]
         public string Customer { get; set; }
 
-        [StringLength(3)]
         public string Status { get; set; }
 
         public DateTime StartDate { get; set; }

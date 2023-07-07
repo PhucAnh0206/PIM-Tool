@@ -7,13 +7,13 @@ namespace PIMToolCodeBase.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddVersionColumn : IMigrationMetadata
+    public sealed partial class ChangeStatusField : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddVersionColumn));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeStatusField));
         
         string IMigrationMetadata.Id
         {
-            get { return "202306260146545_AddVersionColumn"; }
+            get { return "202307070343274_ChangeStatusField"; }
         }
         
         string IMigrationMetadata.Source

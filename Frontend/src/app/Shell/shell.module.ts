@@ -14,25 +14,6 @@ import { HttpLoaderFactory } from "../app.module";
 
 @NgModule({
   declarations: [ShellComponent],
-  imports: [
-    RouterModule,
-    PIMBaseModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient, Location],
-      },
-      defaultLanguage: "en",
-    }),
-  ],
+  imports: [RouterModule, PIMBaseModule],
 })
-export class ShellModule {
-  constructor(public translate: TranslateService) {
-    translate.addLangs(["en", "fr"]);
-    translate.setDefaultLang("en");
-
-    const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr/) ? browserLang : "en");
-  }
-}
+export class ShellModule {}
