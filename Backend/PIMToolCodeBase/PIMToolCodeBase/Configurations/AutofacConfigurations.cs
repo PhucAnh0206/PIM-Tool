@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
+using Microsoft.Owin.Hosting;
 using PIMToolCodeBase.Database;
 using PIMToolCodeBase.Repositories;
 using PIMToolCodeBase.Repositories.Imp;
@@ -22,9 +23,7 @@ namespace PIMToolCodeBase.Configurations
             // Services register
             builder.RegisterType<SampleService>().As<ISampleService>().InstancePerLifetimeScope();
             builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
-            builder.RegisterType<GroupService>().As<IGroupService>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeeService>().As<IEmployeeService>().InstancePerLifetimeScope();
-            builder.RegisterType<ProjectEmployeeService>().As<IProjectEmployeeService>().InstancePerLifetimeScope();
+ 
 
             // Repositories register
             builder.RegisterType<SampleRepository>().As<ISampleRepository>().InstancePerLifetimeScope();
@@ -41,6 +40,7 @@ namespace PIMToolCodeBase.Configurations
 
             // extend register
             extendRegister?.Invoke(builder);
+            
 
             return builder.Build();
         }

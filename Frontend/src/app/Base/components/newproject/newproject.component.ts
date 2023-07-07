@@ -61,7 +61,7 @@ export class NewprojectComponent implements OnInit {
         projectName: ["", Validators.required],
         customer: ["", Validators.required],
         group: ["", Validators.required],
-        members: [[]],
+        members: [],
         status: ["New", Validators.required],
         startdate: ["", Validators.required],
         enddate: [""],
