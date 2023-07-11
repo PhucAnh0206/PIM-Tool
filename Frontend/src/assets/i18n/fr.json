@@ -33,5 +33,7 @@
   "Help": "Aider",
   "Log out": "Se déconnecter",
   "items selected": "articles sélectionnés",
-  "Delete selected items": "Supprimer l'élément sélectionné"
+  "Delete selected items": "Supprimer l'élément sélectionné",
+  "Edit Project information": "Modifier les informations du projet",
+  "Search Project": "Rechercher un projet"
 }

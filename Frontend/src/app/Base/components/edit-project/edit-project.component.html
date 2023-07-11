@@ -1,12 +1,12 @@
 <h2>{{ title | translate }}</h2>
-
 <hr />
 <form
   #localForm="ngForm"
   [formGroup]="newprojectForm"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="updateProject()"
   class="form-container"
 >
+  <!-- Form fields omitted for brevity -->
   <div class="form-group">
     <div class="input-group">
       <label for="project-number"
@@ -149,6 +149,13 @@
       </div>
     </div>
   </div>
+
+  <div
+    class="error-message"
+    *ngIf="localForm.submitted && newprojectForm.invalid"
+  >
+    {{ "Please enter all the mandatory fields (*)" | translate }}
+  </div>
   <hr />
 
   <div
@@ -158,15 +165,10 @@
     {{ "Please enter all the mandatory fields (*)" | translate }}
   </div>
   <div class="button-container">
-    <button
-      class="cancelButton"
-      type="button"
-      mat-dialog-close
-      (click)="cancel()"
-    >
+    <button class="cancelButton" type="button" (click)="cancel()">
       {{ "Cancel" | translate }}
     </button>
-    <button class="createButton" type="submit">
+    <button class="updateButton" type="submit">
       {{ actionBtn | translate }}
     </button>
   </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIMToolCodeBase.Dtos
@@ -9,6 +10,7 @@ namespace PIMToolCodeBase.Dtos
 
         public int GroupLeaderId { get; set; }
 
-        public int Version { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; }
     }
 }

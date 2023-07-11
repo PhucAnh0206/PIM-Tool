@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace PIMToolCodeBase.Dtos
 {
@@ -10,5 +11,9 @@ namespace PIMToolCodeBase.Dtos
         public int Id { get; set; }
 
         public string Details { get; set; }
+
+
+        [Timestamp]
+        public byte[] Version { get; set; }
     }
 }

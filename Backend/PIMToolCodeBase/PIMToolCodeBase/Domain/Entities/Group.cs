@@ -13,6 +13,5 @@ namespace PIMToolCodeBase.Domain.Entities
         public int GroupLeaderId { get; set; }
         public Employee Employee { get; set; }
 
-        public int Version { get; set; }
     }
 }

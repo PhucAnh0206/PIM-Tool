@@ -1,6 +1,7 @@
 ﻿using PIMToolCodeBase.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace PIMToolCodeBase.Dtos
         public int ProjectId { get; set; }
 
         public int EmployeeId { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
 
     }
 }

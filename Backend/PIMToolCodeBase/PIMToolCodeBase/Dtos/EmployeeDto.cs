@@ -18,7 +18,9 @@ namespace PIMToolCodeBase.Dtos
 
         public DateTime BirthDate { get; set; }
 
-        public int Version { get; set; }
+
+        [Timestamp]
+        public byte[] Version { get; set; }
 
     }
 }

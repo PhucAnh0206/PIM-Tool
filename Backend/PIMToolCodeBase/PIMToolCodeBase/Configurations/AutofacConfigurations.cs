@@ -28,9 +28,6 @@ namespace PIMToolCodeBase.Configurations
             // Repositories register
             builder.RegisterType<SampleRepository>().As<ISampleRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ProjectRepository>().As<IProjectRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<GroupRepository>().As<IGroupRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ProjectEmployeeRepository>().As<IProjectEmployeeRepository>().InstancePerLifetimeScope();
 
             // Context
             builder.RegisterType<PimContext>().AsSelf().InstancePerLifetimeScope();

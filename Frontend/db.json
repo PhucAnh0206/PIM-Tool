@@ -1,17 +1,6 @@
 {
   "projectList": [
     {
-      "projectNumber": "14",
-      "projectName": "MARE",
-      "customer": "AB",
-      "group": "666",
-      "members": "tnp",
-      "status": "In Progress",
-      "startdate": "2023-07-01",
-      "enddate": "2023-07-20",
-      "id": 2
-    },
-    {
       "projectNumber": "17",
       "projectName": "J#%@",
       "customer": "L",
@@ -21,17 +10,6 @@
       "startdate": "2023-07-07",
       "enddate": "2023-07-08",
       "id": 3
-    },
-    {
-      "projectNumber": "12",
-      "projectName": "KJH",
-      "customer": "A",
-      "group": "1",
-      "members": "TNPN",
-      "status": "New",
-      "startdate": "2023-07-08",
-      "enddate": "",
-      "id": 5
     },
     {
       "projectNumber": "44",
@@ -76,6 +54,28 @@
       "startdate": "2023-07-15",
       "enddate": "",
       "id": 9
+    },
+    {
+      "projectNumber": "14",
+      "projectName": "ABC",
+      "customer": "A",
+      "group": "1",
+      "members": [],
+      "status": "New",
+      "startdate": "2023-07-01",
+      "enddate": "",
+      "id": 13
+    },
+    {
+      "projectNumber": "16",
+      "projectName": "MARRE",
+      "customer": "AB",
+      "group": "3",
+      "members": "THNN",
+      "status": "In Progress",
+      "startdate": "2023-07-01",
+      "enddate": "",
+      "id": 14
     }
   ],
   "comments": [

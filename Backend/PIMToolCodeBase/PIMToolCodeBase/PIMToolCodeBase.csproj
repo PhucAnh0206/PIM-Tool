@@ -181,9 +181,6 @@
     <Compile Include="Domain\Entities\BaseEntity.cs" />
     <Compile Include="Domain\Entities\Sample.cs" />
     <Compile Include="Extensions\ModelBuilderExtensions.cs" />
-    <Compile Include="MappingProfiles\EmployeeMappingProfile.cs" />
-    <Compile Include="MappingProfiles\GroupMappingProfile.cs" />
-    <Compile Include="MappingProfiles\ProjectEmployeeMappingProfile.cs" />
     <Compile Include="MappingProfiles\ProjectMappingProfile.cs" />
     <Compile Include="MappingProfiles\SampleMappingProfile.cs" />
     <Compile Include="Migrations\202306191028334_InitialCreate.cs" />
@@ -214,18 +211,24 @@
     <Compile Include="Migrations\202307070343274_ChangeStatusField.designer.cs">
       <DependentUpon>202307070343274_ChangeStatusField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307110131190_AddMembersInProject.cs" />
+    <Compile Include="Migrations\202307110131190_AddMembersInProject.designer.cs">
+      <DependentUpon>202307110131190_AddMembersInProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307110133598_Adjust-Project.cs" />
+    <Compile Include="Migrations\202307110133598_Adjust-Project.designer.cs">
+      <DependentUpon>202307110133598_Adjust-Project.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307110211246_ChangeVersionType.cs" />
+    <Compile Include="Migrations\202307110211246_ChangeVersionType.designer.cs">
+      <DependentUpon>202307110211246_ChangeVersionType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\IGroupRepository.cs" />
     <Compile Include="Repositories\Imp\BaseRepository.cs" />
-    <Compile Include="Repositories\Imp\EmployeeRepository.cs" />
-    <Compile Include="Repositories\Imp\GroupRepository.cs" />
-    <Compile Include="Repositories\Imp\ProjectEmployeeRepository.cs" />
     <Compile Include="Repositories\Imp\ProjectRepository.cs" />
     <Compile Include="Repositories\Imp\SampleRepository.cs" />
-    <Compile Include="Repositories\IProjectEmployeeRepository.cs" />
     <Compile Include="Repositories\IProjectRepository.cs" />
     <Compile Include="Repositories\ISampleRepository.cs" />
     <Compile Include="Services\Imp\BaseService.cs" />
@@ -270,6 +273,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307070343274_ChangeStatusField.resx">
       <DependentUpon>202307070343274_ChangeStatusField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307110131190_AddMembersInProject.resx">
+      <DependentUpon>202307110131190_AddMembersInProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307110133598_Adjust-Project.resx">
+      <DependentUpon>202307110133598_Adjust-Project.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307110211246_ChangeVersionType.resx">
+      <DependentUpon>202307110211246_ChangeVersionType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
