@@ -20,11 +20,8 @@ namespace PIMToolCodeBase.Configurations
                             new MapperConfiguration(
                             x =>
                             {
-                                x.AddProfile(new EmployeeMappingProfile());
                                 x.AddProfile(new SampleMappingProfile());
                                 x.AddProfile(new ProjectMappingProfile());
-                                x.AddProfile(new GroupMappingProfile());
-                                x.AddProfile(new ProjectEmployeeMappingProfile());
                             });
 
 

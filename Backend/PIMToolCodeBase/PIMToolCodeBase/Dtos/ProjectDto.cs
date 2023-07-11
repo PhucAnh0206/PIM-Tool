@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIMToolCodeBase.Dtos
 {
@@ -16,13 +16,20 @@ namespace PIMToolCodeBase.Dtos
         public string Customer { get; set; }
 
         public string Status { get; set; }
+        public int GroupId { get; set; }
 
+        public string Members { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
-
+        [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
-        public int Version { get; set; }
+        [Timestamp]
+        public byte[] Version { get; set; }
 
-        public int GroupId { get; set; }  // Foreign key property
+
+
+
     }
 }

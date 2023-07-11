@@ -6,13 +6,22 @@
   <div style="display: flex">
     <mat-form-field>
       <mat-label> {{ "Project number, name, customer" | translate }}</mat-label>
-      <input matInput (keyup)="applyFilter($event)" #input1 />
+      <input matInput #input1 />
     </mat-form-field>
 
     <mat-form-field style="margin-left: 20px">
       <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <input matInput (keyup)="applyStatusFilter($event)" #input2 />
+      <input matInput #input2 />
     </mat-form-field>
+
+    <button
+      class="searchButton"
+      mat-raised-button
+      color="primary"
+      (click)="applyFilters()"
+    >
+      {{ "Search Project" | translate }}
+    </button>
 
     <button class="clearButton" (click)="clearFilters()" type="button">
       {{ "Reset Search" | translate }}
@@ -41,11 +50,16 @@
           </mat-checkbox>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="projectNumber">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ "Number" | translate }}
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.projectNumber }}</td>
+        <td mat-cell *matCellDef="let row">
+          <a [routerLink]="['/project/edit-project', row.id]">{{
+            row.projectNumber
+          }}</a>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="projectName">
@@ -74,16 +88,13 @@
           {{ "Start Date" | translate }}
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.startdate | date : "dd.MM.yyyy " }}
+          {{ row.startdate | date : "dd.MM.yyyy" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let row">
-          <button mat-icon-button (click)="editProject(row)" color="primary">
-            <mat-icon>edit</mat-icon>
-          </button>
           <button
             mat-icon-button
             (click)="deleteProduct(row.id)"

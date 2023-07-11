@@ -1,12 +1,12 @@
 <h2>{{ title | translate }}</h2>
-
 <hr />
 <form
   #localForm="ngForm"
   [formGroup]="newprojectForm"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="updateProject()"
   class="form-container"
 >
+  <!-- Form fields omitted for brevity -->
   <div class="form-group">
     <div class="input-group">
       <label for="project-number"
@@ -18,6 +18,7 @@
         type="text"
         formControlName="projectNumber"
         required
+        readonly
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('projectNumber')?.invalid
         "
@@ -125,6 +126,7 @@
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('startdate')?.invalid
         "
+        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
       />
     </div>
   </div>
@@ -140,6 +142,7 @@
           newprojectForm.get('enddate').invalid &&
           newprojectForm.get('enddate').touched
         "
+        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
       />
       <div
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
@@ -148,6 +151,13 @@
         {{ "End date must not be smaller than start date" | translate }}
       </div>
     </div>
+  </div>
+
+  <div
+    class="error-message"
+    *ngIf="localForm.submitted && newprojectForm.invalid"
+  >
+    {{ "Please enter all the mandatory fields (*)" | translate }}
   </div>
   <hr />
 
@@ -158,15 +168,10 @@
     {{ "Please enter all the mandatory fields (*)" | translate }}
   </div>
   <div class="button-container">
-    <button
-      class="cancelButton"
-      type="button"
-      mat-dialog-close
-      (click)="cancel()"
-    >
+    <button class="cancelButton" type="button" (click)="cancel()">
       {{ "Cancel" | translate }}
     </button>
-    <button class="createButton" type="submit">
+    <button class="updateButton" type="submit">
       {{ actionBtn | translate }}
     </button>
   </div>

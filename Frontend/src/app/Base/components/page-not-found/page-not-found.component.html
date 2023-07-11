@@ -1,0 +1,15 @@
+<body>
+  <div class="error-container">
+    <img class="error-img" src="assets/img/error.png" alt="Error" />
+    <div class="error-text">
+      <p>{{ "Unexpected error occurred." | translate }}</p>
+      <p>{{ "Please contact your administrator" | translate }}</p>
+      <p>
+        {{ "or" | translate }}
+        <a routerLink="/project/project-list">{{
+          "back to search project" | translate
+        }}</a>
+      </p>
+    </div>
+  </div>
+</body>

@@ -16,6 +16,19 @@ import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 
+const fieldMapping = {
+  id: "Id",
+  projectNumber: "ProjectNumber",
+  projectName: "Name",
+  customer: "Customer",
+  status: "Status",
+  startdate: "StartDate",
+  enddate: "EndDate",
+  version: "Version",
+  group: "GroupId",
+  members: "Members",
+};
+
 @Component({
   selector: "new-project",
   templateUrl: "./Newproject.component.html",
@@ -43,17 +56,6 @@ export class NewprojectComponent implements OnInit {
     this.translate.use(lang);
   }
 
-  // endDateValidator(control: FormControl): { [key: string]: boolean } | null {
-  //   const startDate = this.newprojectForm.get('startDate')?.value;
-  //   const endDate = control.value;
-
-  //   if (startDate && endDate && new Date(endDate) < new Date(startDate)) {
-  //     return { endDateInvalid: true };
-  //   }
-
-  //   return null;
-  // }
-
   ngOnInit() {
     this.newprojectForm = this.fb.group(
       {
@@ -61,7 +63,7 @@ export class NewprojectComponent implements OnInit {
         projectName: ["", Validators.required],
         customer: ["", Validators.required],
         group: ["", Validators.required],
-        members: [],
+        members: [""],
         status: ["New", Validators.required],
         startdate: ["", Validators.required],
         enddate: [""],
@@ -70,26 +72,6 @@ export class NewprojectComponent implements OnInit {
     );
 
     this.originalFormState = this.newprojectForm.value;
-    if (Object.keys(this.editData).length > 0) {
-      this.actionBtn = "Update";
-      this.title = "Edit Project";
-      this.newprojectForm.controls["projectNumber"].setValue(
-        this.editData.projectNumber
-      );
-      // this.newprojectForm.controls["projectNumber"].disable();
-      this.newprojectForm.controls["projectName"].setValue(
-        this.editData.projectName
-      );
-      this.newprojectForm.controls["customer"].setValue(this.editData.customer);
-      this.newprojectForm.controls["group"].setValue(this.editData.group);
-      this.newprojectForm.controls["members"].setValue(this.editData.members);
-      this.newprojectForm.controls["status"].setValue(this.editData.status);
-      this.newprojectForm.controls["startdate"].setValue(
-        this.editData.startdate
-      );
-      this.newprojectForm.controls["enddate"].setValue(this.editData.enddate);
-      this.originalFormState = this.newprojectForm.value;
-    }
   }
 
   dateComparisonValidator(group: FormGroup) {
@@ -104,39 +86,34 @@ export class NewprojectComponent implements OnInit {
   }
 
   onSubmit() {
-    if (Object.keys(this.editData).length === 0) {
-      if (this.newprojectForm.valid) {
-        this.api.postProject(this.newprojectForm.value).subscribe({
-          next: (res) => {
-            alert("Project added successfully");
-            this.newprojectForm.reset();
-            // this.dialogRef.close("create");
-            this.router.navigate(["/project/project-list"]);
-          },
-          error: () => {
-            alert("Error while adding the project ");
-          },
-        });
+    // if (Object.keys(this.editData).length === 0) {
+    if (this.newprojectForm.valid) {
+      const mappedData = {};
+      for (const key in this.newprojectForm.value) {
+        if (fieldMapping[key]) {
+          mappedData[fieldMapping[key]] = this.newprojectForm.value[key];
+        }
       }
-    } else {
-      this.updateProject();
+      this.api.postProject(mappedData).subscribe({
+        next: (res) => {
+          alert("Project added successfully");
+          this.newprojectForm.reset();
+          this.router.navigate(["/project/project-list"]);
+        },
+        error: (err) => {
+          if (err.error) {
+            alert(
+              "The project number already exists. Please select a different project number."
+            );
+          } else {
+            alert("Error while adding the project");
+          }
+        },
+      });
     }
   }
 
-  updateProject() {
-    this.api.putProject(this.newprojectForm.value, this.editData.id).subscribe({
-      next: (res) => {
-        alert("Project updated successfully");
-        this.newprojectForm.reset();
-        this.dialogRef.close("update");
-      },
-      error: () => {
-        alert("Error while updating the record");
-      },
-    });
-  }
-
-  cancle() {
+  cancel() {
     this.newprojectForm.reset(this.originalFormState);
   }
 }

@@ -20,7 +20,5 @@ namespace PIMToolCodeBase.Domain.Entities
 
         public DateTime BirthDate { get; set; }
 
-        public int Version { get; set; }
-
     }
 }

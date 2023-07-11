@@ -19,16 +19,28 @@ import { MatTableModule } from "@angular/material/table";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { ApiService } from "./services/api.service";
+import { EditProjectComponent } from "./components/edit-project/edit-project.component";
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 // All exported items hear need to declare in public_api.ts
-const DECLARED_EXPORTS = [GridComponent, NewprojectComponent];
+const DECLARED_EXPORTS = [
+  GridComponent,
+  NewprojectComponent,
+  EditProjectComponent,
+];
 
 const ENTRY_COMPONENTS = [];
 
 const RELAYED_EXPORTS = [CommonModule, TranslateModule];
 
 @NgModule({
-  declarations: [...DECLARED_EXPORTS, NewprojectComponent, GridComponent],
+  declarations: [
+    ...DECLARED_EXPORTS,
+    NewprojectComponent,
+    GridComponent,
+    EditProjectComponent,
+    PageNotFoundComponent,
+  ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} },

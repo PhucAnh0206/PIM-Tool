@@ -24,7 +24,18 @@ import { TranslateService } from "@ngx-translate/core";
 import { SelectionModel } from "@angular/cdk/collections";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { forkJoin } from "rxjs";
-
+const fieldMapping = {
+  Id: "id",
+  ProjectNumber: "projectNumber",
+  Name: "projectName",
+  Customer: "customer",
+  Status: "status",
+  StartDate: "startdate",
+  EndDate: "enddate",
+  Version: "version",
+  Group: "group",
+  Members: "members",
+};
 @Component({
   selector: "pim-grid",
   templateUrl: "./grid.component.html",
@@ -96,7 +107,16 @@ export class GridComponent implements OnInit {
   getAllProjects() {
     this.api.getProject().subscribe({
       next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
+        const mappedData = res.map((item) => {
+          const mappedItem = {};
+          for (const key in item) {
+            if (fieldMapping[key]) {
+              mappedItem[fieldMapping[key]] = item[key];
+            }
+          }
+          return mappedItem;
+        });
+        this.dataSource = new MatTableDataSource(mappedData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
@@ -106,23 +126,8 @@ export class GridComponent implements OnInit {
     });
   }
 
-  editProject(row: any) {
-    this.dialog
-      .open(NewprojectComponent, {
-        width: "30%",
-        data: row,
-      })
-      .afterClosed()
-      .subscribe({
-        next: (res) => {
-          this.getAllProjects();
-        },
-      });
-  }
-
   deleteProduct(id: number) {
     const project = this.dataSource.data.find((item) => item.id === id);
-
     if (project && project.status === "New") {
       this.api.deleteProject(id).subscribe({
         next: (res) => {
@@ -180,56 +185,72 @@ export class GridComponent implements OnInit {
   filteredColumn: string[] = ["status"];
   filterOptions: string[] = ["New", "Planned", "In Progess", "Finished"]; // Fixed filter options
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (data: string, filter: string) => {
-      const transformedFilter = filter.trim().toLowerCase();
-      for (const column of this.filteredColumns) {
-        const columnValue = data[column]
-          ? data[column].toString().toLowerCase()
-          : "";
-        if (columnValue.includes(transformedFilter)) {
-          return true;
-        }
-      }
-      return false;
-    };
-    this.dataSource.filter = filterValue;
+  applyFilters() {
+    const filterValue1 = this.input1.nativeElement.value;
+    const filterValue2 = this.input2.nativeElement.value;
 
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
-  }
-
-  applyStatusFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (data: string, filter: string) => {
-      const transformedFilter = filter.trim().toLowerCase();
-      for (const column of this.filteredColumn) {
-        const columnValue = data[column]
-          ? data[column].toString().toLowerCase()
+    if (filterValue1 !== "" && filterValue2 !== "") {
+      this.dataSource.filterPredicate = (data: any, filter: string) => {
+        const transformedFilter = filter.trim().toLowerCase();
+        const columnValue1 = data.column1
+          ? data.column1.toString().toLowerCase()
           : "";
-        if (columnValue.includes(transformedFilter)) {
-          return true;
+        const columnValue2 = data.column2
+          ? data.column2.toString().toLowerCase()
+          : "";
+
+        return (
+          columnValue1.includes(transformedFilter) &&
+          columnValue2.includes(transformedFilter)
+        );
+      };
+
+      // Combine both filter values into a single string
+      const combinedFilter = filterValue1 + filterValue2;
+      this.dataSource.filter = combinedFilter.trim().toLowerCase();
+    } else if (filterValue1 !== "") {
+      this.dataSource.filterPredicate = (data: string, filter: string) => {
+        const transformedFilter = filter.trim().toLowerCase();
+        for (const column of this.filteredColumns) {
+          const columnValue = data[column]
+            ? data[column].toString().toLowerCase()
+            : "";
+          if (columnValue.includes(transformedFilter)) {
+            return true;
+          }
         }
-      }
-      return false;
-    };
-    this.dataSource.filter = filterValue;
+        return false;
+      };
+      this.dataSource.filter = filterValue1;
+    } else if (filterValue2 !== "") {
+      this.dataSource.filterPredicate = (data: string, filter: string) => {
+        const transformedFilter = filter.trim().toLowerCase();
+        for (const column of this.filteredColumn) {
+          const columnValue = data[column]
+            ? data[column].toString().toLowerCase()
+            : "";
+          if (columnValue.includes(transformedFilter)) {
+            return true;
+          }
+        }
+        return false;
+      };
+      this.dataSource.filter = filterValue2;
+    } else {
+      // No filters applied, reset the filter
+      this.dataSource.filterPredicate = null;
+      this.dataSource.filter = "";
+    }
   }
 
   clearFilters() {
     this.input1.nativeElement.value = "";
     this.input2.nativeElement.value = "";
-    // Clear the filters
+
     this.dataSource.filter = "";
 
-    // Reset the filter predicate (if needed)
     this.dataSource.filterPredicate = null;
 
-    // Optionally, you can also reset any other filter-related variables or properties in your component
-
-    // Trigger the filter update
     this.dataSource.filter = "";
   }
 }

@@ -46,6 +46,9 @@ namespace PIMToolCodeBase.Database
 
             modelBuilder.Entity<ProjectEmployee>().ToTablePerConcreteTable();
 
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Version)
+                .IsConcurrencyToken();
         }
     }
 }
