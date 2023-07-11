@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIMToolCodeBase.Dtos
 {
@@ -20,8 +20,9 @@ namespace PIMToolCodeBase.Dtos
 
         public string Members { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
-
+        [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
         [Timestamp]

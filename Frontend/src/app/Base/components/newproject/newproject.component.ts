@@ -86,42 +86,31 @@ export class NewprojectComponent implements OnInit {
   }
 
   onSubmit() {
-    if (Object.keys(this.editData).length === 0) {
-      if (this.newprojectForm.valid) {
-        const mappedData = {};
-        for (const key in this.newprojectForm.value) {
-          if (fieldMapping[key]) {
-            mappedData[fieldMapping[key]] = this.newprojectForm.value[key];
-          }
+    // if (Object.keys(this.editData).length === 0) {
+    if (this.newprojectForm.valid) {
+      const mappedData = {};
+      for (const key in this.newprojectForm.value) {
+        if (fieldMapping[key]) {
+          mappedData[fieldMapping[key]] = this.newprojectForm.value[key];
         }
-        this.api.postProject(mappedData).subscribe({
-          next: (res) => {
-            alert("Project added successfully");
-            this.newprojectForm.reset();
-            // this.dialogRef.close("create");
-            this.router.navigate(["/project/project-list"]);
-          },
-          error: () => {
-            alert("Error while adding the project ");
-          },
-        });
       }
-    } else {
-      this.updateProject();
+      this.api.postProject(mappedData).subscribe({
+        next: (res) => {
+          alert("Project added successfully");
+          this.newprojectForm.reset();
+          this.router.navigate(["/project/project-list"]);
+        },
+        error: (err) => {
+          if (err.error) {
+            alert(
+              "The project number already exists. Please select a different project number."
+            );
+          } else {
+            alert("Error while adding the project");
+          }
+        },
+      });
     }
-  }
-
-  updateProject() {
-    this.api.putProject(this.newprojectForm.value, this.editData.id).subscribe({
-      next: (res) => {
-        alert("Project updated successfully");
-        this.newprojectForm.reset();
-        this.dialogRef.close("update");
-      },
-      error: () => {
-        alert("Error while updating the record");
-      },
-    });
   }
 
   cancel() {

@@ -5,7 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PIMToolCodeBase.Exceptions;
+
 using System.Threading.Tasks;
+using PIMToolCodeBase.Repositories.Imp;
 
 namespace PIMToolCodeBase.Services.Imp
 {
@@ -35,9 +38,18 @@ namespace PIMToolCodeBase.Services.Imp
 
         public Project Create(Project project)
         {
-            var projects = _projectRepository.Add(project);
-            _projectRepository.SaveChange();
-            return projects.FirstOrDefault();
+            try
+            {
+                _projectRepository.Exists(project);
+                var projects = _projectRepository.Add(project);
+                _projectRepository.SaveChange();
+                return projects.FirstOrDefault();
+
+            }
+            catch (ProjectNumberAlreadyExistsException e)
+            {
+                throw new ProjectNumberAlreadyExistsException(e.Message);
+            }
         }
 
         public Project Update(Project project)

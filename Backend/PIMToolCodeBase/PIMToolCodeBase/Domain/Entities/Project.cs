@@ -25,8 +25,10 @@ namespace PIMToolCodeBase.Domain.Entities
 
         public string Members { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
 

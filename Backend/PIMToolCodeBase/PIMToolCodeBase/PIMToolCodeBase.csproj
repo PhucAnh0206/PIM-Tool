@@ -180,6 +180,7 @@
     <Compile Include="Dtos\SampleDto.cs" />
     <Compile Include="Domain\Entities\BaseEntity.cs" />
     <Compile Include="Domain\Entities\Sample.cs" />
+    <Compile Include="Exceptions\ProjectNumberAlreadyExistsException.cs" />
     <Compile Include="Extensions\ModelBuilderExtensions.cs" />
     <Compile Include="MappingProfiles\ProjectMappingProfile.cs" />
     <Compile Include="MappingProfiles\SampleMappingProfile.cs" />
@@ -222,6 +223,10 @@
     <Compile Include="Migrations\202307110211246_ChangeVersionType.cs" />
     <Compile Include="Migrations\202307110211246_ChangeVersionType.designer.cs">
       <DependentUpon>202307110211246_ChangeVersionType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202307110654264_Change DateTime.cs" />
+    <Compile Include="Migrations\202307110654264_Change DateTime.designer.cs">
+      <DependentUpon>202307110654264_Change DateTime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -282,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202307110211246_ChangeVersionType.resx">
       <DependentUpon>202307110211246_ChangeVersionType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307110654264_Change DateTime.resx">
+      <DependentUpon>202307110654264_Change DateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

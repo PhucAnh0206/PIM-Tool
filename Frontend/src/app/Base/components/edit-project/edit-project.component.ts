@@ -90,29 +90,31 @@ export class EditProjectComponent implements OnInit {
   }
 
   updateProject() {
-    if (this.newprojectForm.valid) {
+    if (this.newprojectForm.valid && this.editData) {
       const updatedProject = {
-        id: this.editData.id,
-        projectNumber: this.newprojectForm.value.projectNumber,
-        projectName: this.newprojectForm.value.projectName,
-        customer: this.newprojectForm.value.customer,
-        group: this.newprojectForm.value.group,
-        members: this.newprojectForm.value.members,
-        status: this.newprojectForm.value.status,
-        startdate: this.newprojectForm.value.startdate,
-        enddate: this.newprojectForm.value.enddate,
+        Id: this.editData.Id,
+        ProjectNumber: this.newprojectForm.value.projectNumber,
+        Name: this.newprojectForm.value.projectName,
+        Customer: this.newprojectForm.value.customer,
+        GroupId: this.newprojectForm.value.group,
+        Members: this.newprojectForm.value.members,
+        Status: this.newprojectForm.value.status,
+        StartDate: this.newprojectForm.value.startdate,
+        EndDate: this.newprojectForm.value.enddate,
       };
-
-      this.api.putProject(updatedProject, this.editData.id).subscribe(
-        (res) => {
-          alert("Project updated successfully");
-          this.router.navigate(["/project/project-list"]);
-        },
-        (error) => {
-          console.error("Error while updating project:", error);
-          alert("Error while updating the project");
-        }
-      );
+      this.api
+        .putProject(updatedProject, this.editData[fieldMapping.id])
+        .subscribe(
+          (res) => {
+            console.log(res);
+            alert("Project updated successfully");
+            this.router.navigate(["/project/project-list"]);
+          },
+          (error) => {
+            console.error("Error while updating project:", error);
+            alert("Error while updating the project");
+          }
+        );
     }
   }
 

@@ -25,7 +25,7 @@
   "End date": "Date de fin",
   "End date must not be smaller than start date": "La date de fin ne doit pas être inférieure à la date de début",
   "Please enter all the mandatory fields (*)": "Veuillez renseigner tous les champs obligatoires (*)",
-  "Cancle": "Annuler",
+  "Cancel": "Annuler",
   "New Project": "Nouveau projet",
   "Edit Project": "Modifier le projet",
   "Create": "Créer",
@@ -35,5 +35,9 @@
   "items selected": "articles sélectionnés",
   "Delete selected items": "Supprimer l'élément sélectionné",
   "Edit Project information": "Modifier les informations du projet",
-  "Search Project": "Rechercher un projet"
+  "Search Project": "Rechercher un projet",
+  "Unexpected error occurred.": "Une erreur inattendue s'est produite.",
+  "Please contact your administrator": "Veuillez contacter votre administrateur",
+  "or": "ou",
+  "back to search project": "retour au projet de recherche"
 }
