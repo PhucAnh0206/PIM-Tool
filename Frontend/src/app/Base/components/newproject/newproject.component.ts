@@ -68,7 +68,12 @@ export class NewprojectComponent implements OnInit {
         startdate: ["", Validators.required],
         enddate: [""],
       },
-      { validator: this.dateComparisonValidator }
+      {
+        validators: [
+          this.dateComparisonValidator,
+          this.checkProjectNumberExists.bind(this),
+        ],
+      }
     );
 
     this.originalFormState = this.newprojectForm.value;
@@ -77,7 +82,6 @@ export class NewprojectComponent implements OnInit {
   dateComparisonValidator(group: FormGroup) {
     const startDate = group.get("startdate").value;
     const endDate = group.get("enddate").value;
-
     if (startDate && endDate && startDate > endDate) {
       group.get("enddate").setErrors({ dateComparison: true });
     } else {
@@ -85,8 +89,26 @@ export class NewprojectComponent implements OnInit {
     }
   }
 
+  checkProjectNumberExists(group: FormGroup) {
+    const projectNumber = group.get("projectNumber").value;
+    this.api.getProject().subscribe({
+      next: (projectList) => {
+        const isExisting = projectList.some(
+          (project: any) => project.ProjectNumber == projectNumber
+        );
+        if (isExisting) {
+          this.newprojectForm.get("projectNumber")?.setErrors({ exists: true });
+        } else {
+          this.newprojectForm.get("projectNumber")?.setErrors(null);
+        }
+      },
+      error: (err) => {
+        alert("Error while fetching the project list");
+      },
+    });
+  }
+
   onSubmit() {
-    // if (Object.keys(this.editData).length === 0) {
     if (this.newprojectForm.valid) {
       const mappedData = {};
       for (const key in this.newprojectForm.value) {

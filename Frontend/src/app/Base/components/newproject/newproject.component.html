@@ -22,6 +22,15 @@
           localForm.submitted && newprojectForm.get('projectNumber')?.invalid
         "
       />
+      <div
+        class="number-exist-error"
+        *ngIf="newprojectForm.get('projectNumber')?.hasError('exists')"
+      >
+        {{
+          "The project number already exists. Please select a different project number."
+            | translate
+        }}
+      </div>
     </div>
   </div>
 
@@ -143,7 +152,7 @@
       />
       <div
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
-        class="invalid-feedback"
+        class="invalid-date-feedback"
       >
         {{ "End date must not be smaller than start date" | translate }}
       </div>

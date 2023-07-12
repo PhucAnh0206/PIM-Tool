@@ -134,10 +134,20 @@ button {
   width: 300px;
 }
 
-.invalid-feedback {
+.invalid-date-feedback {
   background-color: rgb(247, 218, 218);
   color: red;
   font-weight: normal;
   padding: 10px;
   width: 270px;
+  margin-left: 20px;
+}
+
+.number-exist-error {
+  background-color: rgb(247, 218, 218);
+  color: red;
+  font-weight: normal;
+  padding: 10px;
+  width: 400px;
+  margin-left: 20px;
 }

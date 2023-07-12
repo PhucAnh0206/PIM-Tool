@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class ApiService {
+  private baseUrl = "http://localhost:8200/api/Project/";
   constructor(private http: HttpClient) {}
 
   postProject(data: any) {

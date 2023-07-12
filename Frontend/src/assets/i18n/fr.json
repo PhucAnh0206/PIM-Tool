@@ -5,6 +5,7 @@
   "Project Status": "L'état du projet",
   "Reset Search": "Réinitialiser la recherche",
   "Number": "Nombre",
+  "and": "et",
   "Name": "Nom",
   "Status": "Statut",
   "Customer": "Client",
@@ -39,5 +40,6 @@
   "Unexpected error occurred.": "Une erreur inattendue s'est produite.",
   "Please contact your administrator": "Veuillez contacter votre administrateur",
   "or": "ou",
-  "back to search project": "retour au projet de recherche"
+  "back to search project": "retour au projet de recherche",
+  "The project number already exists. Please select a different project number.": "Le numéro de projet existe déjà. Veuillez sélectionner un autre numéro de projet."
 }

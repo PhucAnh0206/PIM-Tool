@@ -20,6 +20,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { ApiService } from "./services/api.service";
 import { EditProjectComponent } from "./components/edit-project/edit-project.component";
+import { MatSelectModule } from "@angular/material/select";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 
 // All exported items hear need to declare in public_api.ts
@@ -61,6 +62,7 @@ const RELAYED_EXPORTS = [CommonModule, TranslateModule];
     MatInputModule,
     MatTableModule,
     MatCheckboxModule,
+    MatSelectModule,
   ],
   exports: [...RELAYED_EXPORTS, ...DECLARED_EXPORTS],
 })

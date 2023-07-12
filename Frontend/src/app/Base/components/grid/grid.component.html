@@ -14,6 +14,18 @@
       <input matInput #input2 />
     </mat-form-field>
 
+    <!-- <mat-form-field style="margin-left: 20px">
+      <mat-label>{{ "Project Status" | translate }}</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="New">{{ "New" | translate }}</mat-option>
+        <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
+        <mat-option value="In Progress">{{
+          "In Progress" | translate
+        }}</mat-option>
+        <mat-option value="Finished">{{ "Finished" | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
     <button
       class="searchButton"
       mat-raised-button
@@ -93,7 +105,7 @@
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           <button
             mat-icon-button
@@ -111,7 +123,14 @@
 
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">
-          {{ "No data matching the filter" | translate }} "{{ input.value }}"
+          <div *ngIf="input1.value || input2.value">
+            {{ "No data matching the filter" | translate }}
+            {{ input1.value ? input1.value : input2.value ? input2.value : "" }}
+            <span *ngIf="input1.value && input2.value">{{
+              "and" | translate
+            }}</span>
+            {{ input2.value }}
+          </div>
         </td>
       </tr>
     </table>

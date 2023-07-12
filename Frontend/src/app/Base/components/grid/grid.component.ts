@@ -4,26 +4,19 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
+  AfterViewInit,
 } from "@angular/core";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatIconModule } from "@angular/material/icon";
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from "@angular/material/dialog";
-import { NewprojectComponent } from "../newproject/newproject.component";
+import { MatDialog } from "@angular/material/dialog";
 import { ApiService } from "../../services/api.service";
-import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
-import { MatSort, MatSortModule } from "@angular/material/sort";
-import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { MatInputModule } from "@angular/material/input";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+
 import { TranslateService } from "@ngx-translate/core";
 import { SelectionModel } from "@angular/cdk/collections";
-import { MatCheckboxModule } from "@angular/material/checkbox";
+
 import { forkJoin } from "rxjs";
+
 const fieldMapping = {
   Id: "id",
   ProjectNumber: "projectNumber",
@@ -42,7 +35,7 @@ const fieldMapping = {
   styleUrls: ["./grid.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
@@ -75,6 +68,10 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProjects();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -116,6 +113,9 @@ export class GridComponent implements OnInit {
           }
           return mappedItem;
         });
+
+        mappedData.sort((a, b) => a.projectNumber - b.projectNumber);
+
         this.dataSource = new MatTableDataSource(mappedData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -207,7 +207,7 @@ export class GridComponent implements OnInit {
 
       // Combine both filter values into a single string
       const combinedFilter = filterValue1 + filterValue2;
-      this.dataSource.filter = combinedFilter.trim().toLowerCase();
+      this.dataSource.filter = combinedFilter;
     } else if (filterValue1 !== "") {
       this.dataSource.filterPredicate = (data: string, filter: string) => {
         const transformedFilter = filter.trim().toLowerCase();

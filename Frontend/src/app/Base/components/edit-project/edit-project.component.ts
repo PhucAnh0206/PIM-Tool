@@ -47,21 +47,35 @@ export class EditProjectComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.newprojectForm = this.fb.group({
-      projectNumber: ["", Validators.required],
-      projectName: ["", Validators.required],
-      customer: ["", Validators.required],
-      group: ["", Validators.required],
-      members: [""],
-      status: ["", Validators.required],
-      startdate: ["", Validators.required],
-      enddate: [""],
-    });
+    this.newprojectForm = this.fb.group(
+      {
+        projectNumber: ["", Validators.required],
+        projectName: ["", Validators.required],
+        customer: ["", Validators.required],
+        group: ["", Validators.required],
+        members: [""],
+        status: ["", Validators.required],
+        startdate: ["", Validators.required],
+        enddate: [""],
+      },
+      { validator: this.dateComparisonValidator }
+    );
 
     this.route.params.subscribe((params) => {
       const projectId = params["id"];
       this.getProjectById(projectId);
     });
+  }
+
+  dateComparisonValidator(group: FormGroup) {
+    const startDate = group.get("startdate").value;
+    const endDate = group.get("enddate").value;
+
+    if (startDate && endDate && startDate > endDate) {
+      group.get("enddate").setErrors({ dateComparison: true });
+    } else {
+      group.get("enddate").setErrors(null);
+    }
   }
 
   formatDate(date: Date | string): string {
