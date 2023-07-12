@@ -20,7 +20,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { ApiService } from "./services/api.service";
 import { EditProjectComponent } from "./components/edit-project/edit-project.component";
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
 
 // All exported items hear need to declare in public_api.ts
 const DECLARED_EXPORTS = [

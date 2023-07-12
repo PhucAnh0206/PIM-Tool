@@ -64,6 +64,13 @@ export class EditProjectComponent implements OnInit {
     });
   }
 
+  formatDate(date: Date | string): string {
+    const formattedDate = date instanceof Date ? date : new Date(date);
+    const timezoneOffset = formattedDate.getTimezoneOffset() * 60000; // Convert offset to milliseconds
+    const adjustedDate = new Date(formattedDate.getTime() - timezoneOffset);
+    return adjustedDate.toISOString().slice(0, 10);
+  }
+
   getProjectById(id: number) {
     this.api.getProjectById(id).subscribe(
       (res) => {
@@ -77,6 +84,8 @@ export class EditProjectComponent implements OnInit {
   }
 
   populateForm() {
+    const startDate = this.formatDate(this.editData[fieldMapping.startdate]);
+    const endDate = this.formatDate(this.editData[fieldMapping.enddate]);
     this.newprojectForm.patchValue({
       projectNumber: this.editData[fieldMapping.projectNumber],
       projectName: this.editData[fieldMapping.projectName],
@@ -84,8 +93,8 @@ export class EditProjectComponent implements OnInit {
       group: this.editData[fieldMapping.group],
       members: this.editData[fieldMapping.members],
       status: this.editData[fieldMapping.status],
-      startdate: this.editData[fieldMapping.startdate],
-      enddate: this.editData[fieldMapping.enddate],
+      startdate: startDate,
+      enddate: endDate,
     });
   }
 
@@ -106,7 +115,6 @@ export class EditProjectComponent implements OnInit {
         .putProject(updatedProject, this.editData[fieldMapping.id])
         .subscribe(
           (res) => {
-            console.log(res);
             alert("Project updated successfully");
             this.router.navigate(["/project/project-list"]);
           },

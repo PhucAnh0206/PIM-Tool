@@ -120,13 +120,14 @@
       >
       <input
         id="startdate"
+        name="startdate"
         type="date"
         formControlName="startdate"
         required
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('startdate')?.invalid
         "
-        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
+        [value]="newprojectForm.get('startdate').value"
       />
     </div>
   </div>
@@ -142,7 +143,7 @@
           newprojectForm.get('enddate').invalid &&
           newprojectForm.get('enddate').touched
         "
-        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
+        [value]="newprojectForm.get('enddate').value | date : 'yyyy-MM-dd'"
       />
       <div
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
