@@ -74,14 +74,14 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
+  // Whether the number of selected elements matches the total number of rows.
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  // Selects all rows if they are not all selected; otherwise clear selection.
   toggleAllRows() {
     if (this.isAllSelected()) {
       this.selection.clear();
@@ -91,7 +91,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  /** The label for the checkbox on the passed row */
+  // The label for the checkbox on the passed row
   checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? "deselect" : "select"} all`;
@@ -157,12 +157,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     if (allProjectsNew) {
       if (selectedProjects.length > 0) {
-        // Perform the deletion logic for selected projects
         const deletions = selectedProjectIds.map((projectId) =>
           this.api.deleteProject(projectId)
         );
 
-        // Execute the deletion requests in parallel using forkJoin
         forkJoin(deletions).subscribe(
           () => {
             alert("Selected projects deleted successfully");
@@ -183,7 +181,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   filteredColumns: string[] = ["projectNumber", "projectName", "customer"];
   filteredColumn: string[] = ["status"];
-  filterOptions: string[] = ["New", "Planned", "In Progess", "Finished"]; // Fixed filter options
+  filterOptions: string[] = ["New", "Planned", "In Progess", "Finished"];
 
   applyFilters() {
     const filterValue1 = this.input1.nativeElement.value;
@@ -205,7 +203,6 @@ export class GridComponent implements OnInit, AfterViewInit {
         );
       };
 
-      // Combine both filter values into a single string
       const combinedFilter = filterValue1 + filterValue2;
       this.dataSource.filter = combinedFilter;
     } else if (filterValue1 !== "") {
@@ -237,7 +234,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       };
       this.dataSource.filter = filterValue2;
     } else {
-      // No filters applied, reset the filter
       this.dataSource.filterPredicate = null;
       this.dataSource.filter = "";
     }

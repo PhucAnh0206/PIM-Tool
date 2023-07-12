@@ -2,14 +2,14 @@
   <span>{{ "Project List" | translate }}</span>
 </mat-toolbar>
 
-<div style="margin-top: 10px">
-  <div style="display: flex">
+<div class="projectList-page">
+  <div class="filter-container">
     <mat-form-field>
       <mat-label> {{ "Project number, name, customer" | translate }}</mat-label>
       <input matInput #input1 />
     </mat-form-field>
 
-    <mat-form-field style="margin-left: 20px">
+    <mat-form-field class="status-filter">
       <mat-label>{{ "Project Status" | translate }}</mat-label>
       <input matInput #input2 />
     </mat-form-field>

@@ -8,7 +8,7 @@
 
   <div class="buttons">
     <button
-      class="language-button"
+      class="language-button button-margin-right"
       *ngFor="let lang of translate.getLangs()"
       [class.active]="lang === translate.currentLang"
       (click)="translate.use(lang)"

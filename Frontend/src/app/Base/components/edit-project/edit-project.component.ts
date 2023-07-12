@@ -3,18 +3,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../services/api.service";
 
-// const fieldMapping = {
-//   Id: "id",
-//   ProjectNumber: "projectNumber",
-//   Name: "projectName",
-//   Customer: "customer",
-//   Status: "status",
-//   StartDate: "startdate",
-//   EndDate: "enddate",
-//   Version: "version",
-//   Group: "group",
-// };
-
 const fieldMapping = {
   id: "Id",
   projectNumber: "ProjectNumber",
