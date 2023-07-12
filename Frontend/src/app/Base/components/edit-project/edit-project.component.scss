@@ -130,4 +130,23 @@ button {
   font-weight: normal;
   padding: 10px;
   width: 270px;
+  margin-left: 20px;
+}
+
+.projectNumber {
+  background-color: rgb(235, 225, 225);
+}
+
+input[type="text"] {
+  /* Add your desired styles here */
+  padding: 8px;
+}
+
+select[type="text"] {
+  padding: 8px;
+}
+
+input[type="date"] {
+  /* Add your desired styles here */
+  padding: 8px;
 }

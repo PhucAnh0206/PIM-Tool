@@ -18,6 +18,7 @@
         formControlName="projectNumber"
         required
         readonly
+        class="projectNumber"
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('projectNumber')?.invalid
         "

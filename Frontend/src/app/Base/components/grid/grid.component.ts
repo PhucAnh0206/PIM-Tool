@@ -14,7 +14,7 @@ import { MatTableDataSource } from "@angular/material/table";
 
 import { TranslateService } from "@ngx-translate/core";
 import { SelectionModel } from "@angular/cdk/collections";
-
+import { Router } from "@angular/router";
 import { forkJoin } from "rxjs";
 
 const fieldMapping = {
@@ -39,6 +39,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
+    private router: Router,
     public translate: TranslateService
   ) {
     translate.addLangs(["en", "fr"]);
@@ -71,13 +72,13 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    // this.dataSource.sort = this.sort;
   }
 
   // Whether the number of selected elements matches the total number of rows.
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource?.data?.length || 0;
     return numSelected === numRows;
   }
 
@@ -87,7 +88,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.selection.clear();
       return;
     }
-
     this.selection.select(...this.dataSource.data);
   }
 
@@ -122,6 +122,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       },
       error: (err) => {
         alert("Error while fetching the Record!!");
+        this.router.navigate(["/pagenotfound"]);
       },
     });
   }
@@ -181,31 +182,33 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   filteredColumns: string[] = ["projectNumber", "projectName", "customer"];
   filteredColumn: string[] = ["status"];
-  filterOptions: string[] = ["New", "Planned", "In Progess", "Finished"];
 
   applyFilters() {
     const filterValue1 = this.input1.nativeElement.value;
     const filterValue2 = this.input2.nativeElement.value;
+    console.log(filterValue1);
+    console.log(filterValue2);
 
-    if (filterValue1 !== "" && filterValue2 !== "") {
-      this.dataSource.filterPredicate = (data: any, filter: string) => {
-        const transformedFilter = filter.trim().toLowerCase();
-        const columnValue1 = data.column1
-          ? data.column1.toString().toLowerCase()
-          : "";
-        const columnValue2 = data.column2
-          ? data.column2.toString().toLowerCase()
-          : "";
+    // if (filterValue1 !== "" && filterValue2 !== "") {
+    //   this.dataSource.filterPredicate = (data: any, filter: string) => {
+    //     const transformedFilter = filter.trim().toLowerCase();
+    //     const columnValue1 = data.column1
+    //       ? data.column1.toString().toLowerCase()
+    //       : "";
+    //     const columnValue2 = data.column2
+    //       ? data.column2.toString().toLowerCase()
+    //       : "";
 
-        return (
-          columnValue1.includes(transformedFilter) &&
-          columnValue2.includes(transformedFilter)
-        );
-      };
+    //     return (
+    //       columnValue1.includes(transformedFilter) &&
+    //       columnValue2.includes(transformedFilter)
+    //     );
+    //   };
 
-      const combinedFilter = filterValue1 + filterValue2;
-      this.dataSource.filter = combinedFilter;
-    } else if (filterValue1 !== "") {
+    //   const combinedFilter = filterValue1 + filterValue2;
+    //   this.dataSource.filter = combinedFilter;
+    // } else
+    if (filterValue1 !== "") {
       this.dataSource.filterPredicate = (data: string, filter: string) => {
         const transformedFilter = filter.trim().toLowerCase();
         for (const column of this.filteredColumns) {
