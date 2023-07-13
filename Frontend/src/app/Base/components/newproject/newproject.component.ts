@@ -102,8 +102,9 @@ export class NewprojectComponent implements OnInit {
           this.newprojectForm.get("projectNumber")?.setErrors(null);
         }
       },
-      error: (err) => {
+      error: () => {
         alert("Error while fetching the project list");
+        this.router.navigate(["/pagenotfound"]);
       },
     });
   }
@@ -117,7 +118,7 @@ export class NewprojectComponent implements OnInit {
         }
       }
       this.api.postProject(mappedData).subscribe({
-        next: (res) => {
+        next: () => {
           alert("Project added successfully");
           this.newprojectForm.reset();
           this.router.navigate(["/project/project-list"]);

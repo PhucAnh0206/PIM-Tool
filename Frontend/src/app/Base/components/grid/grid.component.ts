@@ -186,8 +186,6 @@ export class GridComponent implements OnInit, AfterViewInit {
   applyFilters() {
     const filterValue1 = this.input1.nativeElement.value;
     const filterValue2 = this.input2.nativeElement.value;
-    console.log(filterValue1);
-    console.log(filterValue2);
 
     // if (filterValue1 !== "" && filterValue2 !== "") {
     //   this.dataSource.filterPredicate = (data: any, filter: string) => {
