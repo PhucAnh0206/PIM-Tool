@@ -16,7 +16,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { SelectionModel } from "@angular/cdk/collections";
 import { Router } from "@angular/router";
 import { forkJoin } from "rxjs";
-
+import * as _ from "lodash";
 const fieldMapping = {
   Id: "id",
   ProjectNumber: "projectNumber",
@@ -69,6 +69,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getAllProjects();
+    // this.api.getProject().subscribe((response: any) => {
+    //   // this.apiResponse = response;
+    //   this.dataSource = new MatTableDataSource(response);
+    // });
   }
 
   ngAfterViewInit() {
@@ -183,7 +187,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   filteredColumns: string[] = ["projectNumber", "projectName", "customer"];
   filteredColumn: string[] = ["status"];
 
-  applyFilters() {
+  applyFilters($event) {
     const filterValue1 = this.input1.nativeElement.value;
     const filterValue2 = this.input2.nativeElement.value;
 
@@ -220,7 +224,26 @@ export class GridComponent implements OnInit, AfterViewInit {
         return false;
       };
       this.dataSource.filter = filterValue1;
-    } else if (filterValue2 !== "") {
+    }
+    // else {
+    //   let filteredData = _.filter(this.apiResponse, (item) => {
+    //     const mappedData = item.map((i) => {
+    //       const mappedItem = {};
+    //       for (const key in i) {
+    //         if (fieldMapping[key]) {
+    //           mappedItem[fieldMapping[key]] = i[key];
+    //         }
+    //       }
+    //       return mappedItem;
+    //     });
+
+    //     return mappedData.status.toLowerCase() == $event.value.toLowerCase();
+    //   });
+
+    //   // this.dataSource = new MatTableDataSource(filteredData);
+    //   this.dataSource.filter = filteredData;
+    // }
+    else if (filterValue2 !== "") {
       this.dataSource.filterPredicate = (data: string, filter: string) => {
         const transformedFilter = filter.trim().toLowerCase();
         for (const column of this.filteredColumn) {
@@ -239,6 +262,24 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.dataSource.filter = "";
     }
   }
+
+  // apiResponse: any = [];
+  // filterData($event: any) {
+  //   this.dataSource.filter = $event.target.value;
+  // }
+
+  // onChange($event: any) {
+  //   const backendFieldNames = Object.values(fieldMapping);
+
+  //   let filteredData = _.filter(this.apiResponse, (item) => {
+  //     return backendFieldNames.some(
+  //       (fieldName) =>
+  //         item[fieldName]?.toLowerCase() == $event.value.toLowerCase()
+  //     );
+  //   });
+
+  //   this.dataSource = new MatTableDataSource(filteredData);
+  // }
 
   clearFilters() {
     this.input1.nativeElement.value = "";

@@ -1,4 +1,4 @@
-<mat-toolbar color="normal">
+<mat-toolbar>
   <span>{{ "Project List" | translate }}</span>
 </mat-toolbar>
 
@@ -28,7 +28,7 @@
 
     <!-- <mat-form-field class="status-filter">
       <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <mat-select (selectionChange)="onChange($event)">
+      <mat-select>
         <mat-option value="New">{{ "New" | translate }}</mat-option>
         <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
         <mat-option value="In Progress">{{
@@ -42,7 +42,7 @@
       class="searchButton"
       mat-raised-button
       color="primary"
-      (click)="applyFilters()"
+      (click)="applyFilters($event)"
     >
       {{ "Search Project" | translate }}
     </button>
@@ -145,6 +145,14 @@
           </div>
         </td>
       </tr>
+
+      <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          <div *ngIf="input1.value">
+            {{ "No data matching the filter" | translate }} {{ input1.value }}
+          </div>
+        </td>
+      </tr> -->
     </table>
 
     <mat-paginator

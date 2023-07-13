@@ -49,6 +49,8 @@ namespace PIMToolCodeBase.Database
             modelBuilder.Entity<Project>()
                 .Property(p => p.Version)
                 .IsConcurrencyToken();
+
+
         }
     }
 }

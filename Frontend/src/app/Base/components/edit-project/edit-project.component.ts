@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../services/api.service";
+import { MatDialog } from "@angular/material/dialog";
+import { PopUpComponent } from "../pop-up/pop-up.component";
 
 const fieldMapping = {
   id: "Id",
@@ -28,11 +30,26 @@ export class EditProjectComponent implements OnInit {
   title: string = "Edit Project information";
 
   constructor(
+    private dialogRef: MatDialog,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private dialog: MatDialog
   ) {}
+
+  openPopup(message: string): void {
+    const dialogRef = this.dialog.open(PopUpComponent, {
+      width: "500px",
+      data: { message: message },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "reload") {
+        window.location.reload();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.newprojectForm = this.fb.group(
@@ -112,6 +129,7 @@ export class EditProjectComponent implements OnInit {
         Status: this.newprojectForm.value.status,
         StartDate: this.newprojectForm.value.startdate,
         EndDate: this.newprojectForm.value.enddate,
+        Version: this.editData.Version,
       };
       this.api
         .putProject(updatedProject, this.editData[fieldMapping.id])
@@ -121,8 +139,15 @@ export class EditProjectComponent implements OnInit {
             this.router.navigate(["/project/project-list"]);
           },
           (error) => {
-            console.error("Error while updating project:", error);
-            alert("Error while updating the project");
+            if (error.status === 409) {
+              // Handle concurrency conflict error
+              this.openPopup(
+                "There was another change has been made on this project. This page will be reloaded to show the latest data"
+              );
+            } else {
+              console.error("Error while updating project:", error);
+              alert("Error while updating the project");
+            }
           }
         );
     }

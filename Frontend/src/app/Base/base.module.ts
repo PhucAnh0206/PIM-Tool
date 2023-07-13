@@ -22,6 +22,7 @@ import { ApiService } from "./services/api.service";
 import { EditProjectComponent } from "./components/edit-project/edit-project.component";
 import { MatSelectModule } from "@angular/material/select";
 import { PageNotFoundComponent } from "./components/page-not-found/page-not-found.component";
+import { PopUpComponent } from './components/pop-up/pop-up.component';
 
 // All exported items hear need to declare in public_api.ts
 const DECLARED_EXPORTS = [
@@ -41,6 +42,7 @@ const RELAYED_EXPORTS = [CommonModule, TranslateModule];
     GridComponent,
     EditProjectComponent,
     PageNotFoundComponent,
+    PopUpComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
