@@ -1,9 +1,11 @@
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../services/api.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PopUpComponent } from "../pop-up/pop-up.component";
+import { TranslateService } from "@ngx-translate/core";
 
 const fieldMapping = {
   id: "Id",
@@ -35,13 +37,14 @@ export class EditProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
   openPopup(message: string): void {
     const dialogRef = this.dialog.open(PopUpComponent, {
       width: "500px",
-      data: { message: message },
+      data: { message: this.translate.instant(message) },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -140,7 +143,6 @@ export class EditProjectComponent implements OnInit {
           },
           (error) => {
             if (error.status === 409) {
-              // Handle concurrency conflict error
               this.openPopup(
                 "There was another change has been made on this project. This page will be reloaded to show the latest data"
               );

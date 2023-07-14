@@ -4,19 +4,12 @@
 
 <div class="projectList-page">
   <div class="filter-container">
-    <mat-form-field>
-      <mat-label> {{ "Project number, name, customer" | translate }}</mat-label>
-      <input matInput #input1 />
+    <mat-form-field appearance="filter">
+      <input matInput placeholder="Project number, name, customer" #input1 />
     </mat-form-field>
 
-    <mat-form-field class="status-filter">
-      <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <input matInput #input2 />
-    </mat-form-field>
-
-    <!-- <mat-form-field class="status-filter">
-      <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <mat-select #input2>
+    <mat-form-field class="status-filter" appearance="filter">
+      <mat-select #input2 placeholder="Project status">
         <mat-option value="New">{{ "New" | translate }}</mat-option>
         <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
         <mat-option value="In Progress">{{
@@ -24,19 +17,7 @@
         }}</mat-option>
         <mat-option value="Finished">{{ "Finished" | translate }}</mat-option>
       </mat-select>
-    </mat-form-field> -->
-
-    <!-- <mat-form-field class="status-filter">
-      <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <mat-select>
-        <mat-option value="New">{{ "New" | translate }}</mat-option>
-        <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
-        <mat-option value="In Progress">{{
-          "In Progress" | translate
-        }}</mat-option>
-        <mat-option value="Finished">{{ "Finished" | translate }}</mat-option>
-      </mat-select>
-    </mat-form-field> -->
+    </mat-form-field>
 
     <button
       class="searchButton"
@@ -156,6 +137,7 @@
     </table>
 
     <mat-paginator
+      #paginator
       [pageSizeOptions]="[5, 10, 25, 100]"
       aria-label="Select page of users"
     ></mat-paginator>

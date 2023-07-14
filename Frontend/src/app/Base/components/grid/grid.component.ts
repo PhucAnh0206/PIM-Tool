@@ -17,6 +17,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { Router } from "@angular/router";
 import { forkJoin } from "rxjs";
 import * as _ from "lodash";
+import { MatSelect } from "@angular/material/select";
 const fieldMapping = {
   Id: "id",
   ProjectNumber: "projectNumber",
@@ -61,7 +62,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   @ViewChild("input1") input1!: ElementRef<HTMLInputElement>;
-  @ViewChild("input2") input2!: ElementRef<HTMLInputElement>;
+  @ViewChild("input2") input2!: MatSelect;
 
   switchLang(lang: string) {
     this.translate.use(lang);
@@ -72,6 +73,8 @@ export class GridComponent implements OnInit, AfterViewInit {
     // this.api.getProject().subscribe((response: any) => {
     //   // this.apiResponse = response;
     //   this.dataSource = new MatTableDataSource(response);
+    //   // this.dataSource.paginator = this.paginator;
+    //   // this.dataSource.sort = this.sort;
     // });
   }
 
@@ -189,7 +192,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   applyFilters($event) {
     const filterValue1 = this.input1.nativeElement.value;
-    const filterValue2 = this.input2.nativeElement.value;
+    const filterValue2 = this.input2.value;
 
     // if (filterValue1 !== "" && filterValue2 !== "") {
     //   this.dataSource.filterPredicate = (data: any, filter: string) => {
@@ -283,7 +286,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   clearFilters() {
     this.input1.nativeElement.value = "";
-    this.input2.nativeElement.value = "";
+    this.input2.value = "";
 
     this.dataSource.filter = "";
 

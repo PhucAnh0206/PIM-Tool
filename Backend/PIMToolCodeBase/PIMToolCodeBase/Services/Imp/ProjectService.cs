@@ -87,14 +87,12 @@ namespace PIMToolCodeBase.Services.Imp
                     projectDb.EndDate = project.EndDate;
                     projectDb.GroupId = project.GroupId;
 
-                    Console.WriteLine("save");
                     
                     _projectRepository.SaveChange();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     
-                    Console.WriteLine("not save");
                     var response = new HttpResponseMessage(HttpStatusCode.Conflict);
                     response.Content = new StringContent("Project data is outdated. Please reload the page to obtain the latest data.");
 
