@@ -1,24 +1,29 @@
-<mat-toolbar color="normal">
+<mat-toolbar>
   <span>{{ "Project List" | translate }}</span>
 </mat-toolbar>
 
-<div style="margin-top: 10px">
-  <div style="display: flex">
-    <mat-form-field>
-      <mat-label> {{ "Project number, name, customer" | translate }}</mat-label>
-      <input matInput #input1 />
+<div class="projectList-page">
+  <div class="filter-container">
+    <mat-form-field appearance="filter">
+      <input matInput [placeholder]="placeholderText | translate" #input1 />
     </mat-form-field>
 
-    <mat-form-field style="margin-left: 20px">
-      <mat-label>{{ "Project Status" | translate }}</mat-label>
-      <input matInput #input2 />
+    <mat-form-field class="status-filter" appearance="filter">
+      <mat-select [placeholder]="placeholderText2 | translate" #input2>
+        <mat-option value="New">{{ "New" | translate }}</mat-option>
+        <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
+        <mat-option value="In Progress">{{
+          "In Progress" | translate
+        }}</mat-option>
+        <mat-option value="Finished">{{ "Finished" | translate }}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <button
       class="searchButton"
       mat-raised-button
       color="primary"
-      (click)="applyFilters()"
+      (click)="applyFilters($event)"
     >
       {{ "Search Project" | translate }}
     </button>
@@ -88,12 +93,12 @@
           {{ "Start Date" | translate }}
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.startdate | date : "dd.MM.yyyy" }}
+          {{ row.startdate | date : "dd.MM.yyyy " }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           <button
             mat-icon-button
@@ -111,12 +116,28 @@
 
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">
-          {{ "No data matching the filter" | translate }} "{{ input.value }}"
+          <div *ngIf="input1.value || input2.value">
+            {{ "No data matching the filter" | translate }}
+            {{ input1.value ? input1.value : input2.value ? input2.value : "" }}
+            <span *ngIf="input1.value && input2.value">{{
+              "and" | translate
+            }}</span>
+            {{ input2.value }}
+          </div>
         </td>
       </tr>
+
+      <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          <div *ngIf="input1.value">
+            {{ "No data matching the filter" | translate }} {{ input1.value }}
+          </div>
+        </td>
+      </tr> -->
     </table>
 
     <mat-paginator
+      #paginator
       [pageSizeOptions]="[5, 10, 25, 100]"
       aria-label="Select page of users"
     ></mat-paginator>

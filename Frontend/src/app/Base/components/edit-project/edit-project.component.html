@@ -6,7 +6,6 @@
   (ngSubmit)="updateProject()"
   class="form-container"
 >
-  <!-- Form fields omitted for brevity -->
   <div class="form-group">
     <div class="input-group">
       <label for="project-number"
@@ -19,6 +18,7 @@
         formControlName="projectNumber"
         required
         readonly
+        class="projectNumber"
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('projectNumber')?.invalid
         "
@@ -120,13 +120,14 @@
       >
       <input
         id="startdate"
+        name="startdate"
         type="date"
         formControlName="startdate"
         required
         [class.is-invalid]="
           localForm.submitted && newprojectForm.get('startdate')?.invalid
         "
-        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
+        [value]="newprojectForm.get('startdate').value"
       />
     </div>
   </div>
@@ -142,7 +143,7 @@
           newprojectForm.get('enddate').invalid &&
           newprojectForm.get('enddate').touched
         "
-        [value]="newprojectForm.get('startdate').value | date : 'dd.MM.yyyy'"
+        [value]="newprojectForm.get('enddate').value | date : 'yyyy-MM-dd'"
       />
       <div
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
@@ -153,12 +154,6 @@
     </div>
   </div>
 
-  <div
-    class="error-message"
-    *ngIf="localForm.submitted && newprojectForm.invalid"
-  >
-    {{ "Please enter all the mandatory fields (*)" | translate }}
-  </div>
   <hr />
 
   <div

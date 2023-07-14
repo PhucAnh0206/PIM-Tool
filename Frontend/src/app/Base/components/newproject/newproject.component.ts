@@ -68,16 +68,46 @@ export class NewprojectComponent implements OnInit {
         startdate: ["", Validators.required],
         enddate: [""],
       },
-      { validator: this.dateComparisonValidator }
+      {
+        validators: [
+          this.dateComparisonValidator,
+          this.checkProjectNumberExists.bind(this),
+        ],
+      }
     );
 
     this.originalFormState = this.newprojectForm.value;
   }
 
+  checkProjectNumberExists(group: FormGroup) {
+    const projectNumberControl = group.get("projectNumber");
+
+    if (projectNumberControl?.value) {
+      const projectNumber = projectNumberControl.value;
+      this.api.getProject().subscribe({
+        next: (projectList) => {
+          const isExisting = projectList.some(
+            (project: any) => project.ProjectNumber == projectNumber
+          );
+          if (isExisting) {
+            projectNumberControl.setErrors({ exists: true });
+          } else {
+            projectNumberControl.setErrors(null);
+          }
+        },
+        error: () => {
+          alert("Error while fetching the project list");
+          this.router.navigate(["/pagenotfound"]);
+        },
+      });
+    } else {
+      projectNumberControl?.setErrors({ required: true });
+    }
+  }
+
   dateComparisonValidator(group: FormGroup) {
     const startDate = group.get("startdate").value;
     const endDate = group.get("enddate").value;
-
     if (startDate && endDate && startDate > endDate) {
       group.get("enddate").setErrors({ dateComparison: true });
     } else {
@@ -86,7 +116,6 @@ export class NewprojectComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (Object.keys(this.editData).length === 0) {
     if (this.newprojectForm.valid) {
       const mappedData = {};
       for (const key in this.newprojectForm.value) {
@@ -95,7 +124,7 @@ export class NewprojectComponent implements OnInit {
         }
       }
       this.api.postProject(mappedData).subscribe({
-        next: (res) => {
+        next: () => {
           alert("Project added successfully");
           this.newprojectForm.reset();
           this.router.navigate(["/project/project-list"]);
@@ -114,6 +143,7 @@ export class NewprojectComponent implements OnInit {
   }
 
   cancel() {
+    this.newprojectForm.clearValidators();
     this.newprojectForm.reset(this.originalFormState);
   }
 }

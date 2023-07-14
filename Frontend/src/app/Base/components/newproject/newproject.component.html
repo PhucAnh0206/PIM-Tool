@@ -19,9 +19,21 @@
         formControlName="projectNumber"
         required
         [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('projectNumber')?.invalid
+          (localForm.submitted &&
+            newprojectForm.get('projectNumber')?.invalid) ||
+          (newprojectForm.get('projectNumber')?.touched &&
+            newprojectForm.get('projectNumber')?.invalid)
         "
       />
+      <div
+        class="number-exist-error"
+        *ngIf="newprojectForm.get('projectNumber')?.hasError('exists')"
+      >
+        {{
+          "The project number already exists. Please select a different project number."
+            | translate
+        }}
+      </div>
     </div>
   </div>
 
@@ -37,7 +49,9 @@
         formControlName="projectName"
         required
         [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('projectName')?.invalid
+          (localForm.submitted && newprojectForm.get('projectName')?.invalid) ||
+          (newprojectForm.get('projectName')?.touched &&
+            newprojectForm.get('projectName')?.invalid)
         "
       />
     </div>
@@ -55,7 +69,9 @@
         formControlName="customer"
         required
         [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('customer')?.invalid
+          (localForm.submitted && newprojectForm.get('customer')?.invalid) ||
+          (newprojectForm.get('customer')?.touched &&
+            newprojectForm.get('customer')?.invalid)
         "
       />
     </div>
@@ -72,7 +88,9 @@
         formControlName="group"
         required
         [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('group')?.invalid
+          (localForm.submitted && newprojectForm.get('group')?.invalid) ||
+          (newprojectForm.get('group')?.touched &&
+            newprojectForm.get('group')?.invalid)
         "
       />
     </div>
@@ -123,7 +141,9 @@
         formControlName="startdate"
         required
         [class.is-invalid]="
-          localForm.submitted && newprojectForm.get('startdate')?.invalid
+          (localForm.submitted && newprojectForm.get('startdate')?.invalid) ||
+          (newprojectForm.get('startdate')?.touched &&
+            newprojectForm.get('startdate')?.invalid)
         "
       />
     </div>
@@ -143,7 +163,7 @@
       />
       <div
         *ngIf="newprojectForm.get('enddate').hasError('dateComparison')"
-        class="invalid-feedback"
+        class="invalid-date-feedback"
       >
         {{ "End date must not be smaller than start date" | translate }}
       </div>
@@ -157,6 +177,7 @@
   >
     {{ "Please enter all the mandatory fields (*)" | translate }}
   </div>
+
   <div class="button-container">
     <button
       class="cancelButton"

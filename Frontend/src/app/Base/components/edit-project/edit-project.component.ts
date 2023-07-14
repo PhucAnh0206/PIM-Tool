@@ -1,19 +1,11 @@
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../services/api.service";
-
-// const fieldMapping = {
-//   Id: "id",
-//   ProjectNumber: "projectNumber",
-//   Name: "projectName",
-//   Customer: "customer",
-//   Status: "status",
-//   StartDate: "startdate",
-//   EndDate: "enddate",
-//   Version: "version",
-//   Group: "group",
-// };
+import { MatDialog } from "@angular/material/dialog";
+import { PopUpComponent } from "../pop-up/pop-up.component";
+import { TranslateService } from "@ngx-translate/core";
 
 const fieldMapping = {
   id: "Id",
@@ -40,28 +32,65 @@ export class EditProjectComponent implements OnInit {
   title: string = "Edit Project information";
 
   constructor(
+    private dialogRef: MatDialog,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private api: ApiService
+    private api: ApiService,
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
-  ngOnInit(): void {
-    this.newprojectForm = this.fb.group({
-      projectNumber: ["", Validators.required],
-      projectName: ["", Validators.required],
-      customer: ["", Validators.required],
-      group: ["", Validators.required],
-      members: [""],
-      status: ["", Validators.required],
-      startdate: ["", Validators.required],
-      enddate: [""],
+  openPopup(message: string): void {
+    const dialogRef = this.dialog.open(PopUpComponent, {
+      width: "500px",
+      data: { message: this.translate.instant(message) },
     });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "reload") {
+        window.location.reload();
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.newprojectForm = this.fb.group(
+      {
+        projectNumber: ["", Validators.required],
+        projectName: ["", Validators.required],
+        customer: ["", Validators.required],
+        group: ["", Validators.required],
+        members: [""],
+        status: ["", Validators.required],
+        startdate: ["", Validators.required],
+        enddate: [""],
+      },
+      { validator: this.dateComparisonValidator }
+    );
 
     this.route.params.subscribe((params) => {
       const projectId = params["id"];
       this.getProjectById(projectId);
     });
+  }
+
+  dateComparisonValidator(group: FormGroup) {
+    const startDate = group.get("startdate").value;
+    const endDate = group.get("enddate").value;
+
+    if (startDate && endDate && startDate > endDate) {
+      group.get("enddate").setErrors({ dateComparison: true });
+    } else {
+      group.get("enddate").setErrors(null);
+    }
+  }
+
+  formatDate(date: Date | string): string {
+    const formattedDate = date instanceof Date ? date : new Date(date);
+    const timezoneOffset = formattedDate.getTimezoneOffset() * 60000; // Convert offset to milliseconds
+    const adjustedDate = new Date(formattedDate.getTime() - timezoneOffset);
+    return adjustedDate.toISOString().slice(0, 10);
   }
 
   getProjectById(id: number) {
@@ -77,6 +106,8 @@ export class EditProjectComponent implements OnInit {
   }
 
   populateForm() {
+    const startDate = this.formatDate(this.editData[fieldMapping.startdate]);
+    const endDate = this.formatDate(this.editData[fieldMapping.enddate]);
     this.newprojectForm.patchValue({
       projectNumber: this.editData[fieldMapping.projectNumber],
       projectName: this.editData[fieldMapping.projectName],
@@ -84,8 +115,8 @@ export class EditProjectComponent implements OnInit {
       group: this.editData[fieldMapping.group],
       members: this.editData[fieldMapping.members],
       status: this.editData[fieldMapping.status],
-      startdate: this.editData[fieldMapping.startdate],
-      enddate: this.editData[fieldMapping.enddate],
+      startdate: startDate,
+      enddate: endDate,
     });
   }
 
@@ -101,18 +132,24 @@ export class EditProjectComponent implements OnInit {
         Status: this.newprojectForm.value.status,
         StartDate: this.newprojectForm.value.startdate,
         EndDate: this.newprojectForm.value.enddate,
+        Version: this.editData.Version,
       };
       this.api
         .putProject(updatedProject, this.editData[fieldMapping.id])
         .subscribe(
           (res) => {
-            console.log(res);
             alert("Project updated successfully");
             this.router.navigate(["/project/project-list"]);
           },
           (error) => {
-            console.error("Error while updating project:", error);
-            alert("Error while updating the project");
+            if (error.status === 409) {
+              this.openPopup(
+                "There was another change has been made on this project. This page will be reloaded to show the latest data"
+              );
+            } else {
+              console.error("Error while updating project:", error);
+              alert("Error while updating the project");
+            }
           }
         );
     }
