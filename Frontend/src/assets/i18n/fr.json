@@ -42,5 +42,7 @@
   "or": "ou",
   "back to search project": "retour au projet de recherche",
   "The project number already exists. Please select a different project number.": "Le numéro de projet existe déjà. Veuillez sélectionner un autre numéro de projet.",
-  "data.message": "Une autre modification a été apportée à ce projet. Cette page sera rechargée pour afficher les dernières données."
+  "data.message": "Une autre modification a été apportée à ce projet. Cette page sera rechargée pour afficher les dernières données.",
+  "placeholderText": "Numéro de projet, nom, client",
+  "placeholderText2": "L'état du projet"
 }

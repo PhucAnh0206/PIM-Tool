@@ -57,6 +57,8 @@ export class GridComponent implements OnInit, AfterViewInit {
   ];
   dataSource!: MatTableDataSource<any>;
   selection = new SelectionModel<any>(true, []);
+  placeholderText: string = "Project number, name, customer";
+  placeholderText2: string = "Project status";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -66,6 +68,8 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   switchLang(lang: string) {
     this.translate.use(lang);
+    this.placeholderText = this.translate.instant(this.placeholderText);
+    this.placeholderText2 = this.translate.instant(this.placeholderText2);
   }
 
   ngOnInit(): void {

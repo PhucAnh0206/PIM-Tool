@@ -79,6 +79,32 @@ export class NewprojectComponent implements OnInit {
     this.originalFormState = this.newprojectForm.value;
   }
 
+  checkProjectNumberExists(group: FormGroup) {
+    const projectNumberControl = group.get("projectNumber");
+
+    if (projectNumberControl?.value) {
+      const projectNumber = projectNumberControl.value;
+      this.api.getProject().subscribe({
+        next: (projectList) => {
+          const isExisting = projectList.some(
+            (project: any) => project.ProjectNumber == projectNumber
+          );
+          if (isExisting) {
+            projectNumberControl.setErrors({ exists: true });
+          } else {
+            projectNumberControl.setErrors(null);
+          }
+        },
+        error: () => {
+          alert("Error while fetching the project list");
+          this.router.navigate(["/pagenotfound"]);
+        },
+      });
+    } else {
+      projectNumberControl?.setErrors({ required: true });
+    }
+  }
+
   dateComparisonValidator(group: FormGroup) {
     const startDate = group.get("startdate").value;
     const endDate = group.get("enddate").value;
@@ -87,26 +113,6 @@ export class NewprojectComponent implements OnInit {
     } else {
       group.get("enddate").setErrors(null);
     }
-  }
-
-  checkProjectNumberExists(group: FormGroup) {
-    const projectNumber = group.get("projectNumber").value;
-    this.api.getProject().subscribe({
-      next: (projectList) => {
-        const isExisting = projectList.some(
-          (project: any) => project.ProjectNumber == projectNumber
-        );
-        if (isExisting) {
-          this.newprojectForm.get("projectNumber")?.setErrors({ exists: true });
-        } else {
-          this.newprojectForm.get("projectNumber")?.setErrors(null);
-        }
-      },
-      error: () => {
-        alert("Error while fetching the project list");
-        this.router.navigate(["/pagenotfound"]);
-      },
-    });
   }
 
   onSubmit() {
@@ -137,6 +143,7 @@ export class NewprojectComponent implements OnInit {
   }
 
   cancel() {
+    this.newprojectForm.clearValidators();
     this.newprojectForm.reset(this.originalFormState);
   }
 }

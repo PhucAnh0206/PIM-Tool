@@ -5,11 +5,11 @@
 <div class="projectList-page">
   <div class="filter-container">
     <mat-form-field appearance="filter">
-      <input matInput placeholder="Project number, name, customer" #input1 />
+      <input matInput [placeholder]="placeholderText | translate" #input1 />
     </mat-form-field>
 
     <mat-form-field class="status-filter" appearance="filter">
-      <mat-select #input2 placeholder="Project status">
+      <mat-select [placeholder]="placeholderText2 | translate" #input2>
         <mat-option value="New">{{ "New" | translate }}</mat-option>
         <mat-option value="Planned">{{ "Planned" | translate }}</mat-option>
         <mat-option value="In Progress">{{
